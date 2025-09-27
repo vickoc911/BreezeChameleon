@@ -58,7 +58,7 @@ namespace Breeze
         connect( m_ui.hideTitleBar, &QAbstractButton::clicked, this, &ExceptionDialog::updateChanged );
         connect( m_ui.opaqueTitleBar, SIGNAL(clicked()), SLOT(updateChanged()) );
         m_ui.opacityOverrideLabelSpinBox->setSpecialValueText(tr("None"));
-        connect( m_ui.opacityOverrideLabelSpinBox, QOverload<int>::of(&QSpinBox::valueChanged), [=](int /*i*/){updateChanged();} );
+        connect( m_ui.opacityOverrideLabelSpinBox, QOverload<int>::of(&QSpinBox::valueChanged), [this](int /*i*/){updateChanged();} );
         connect( m_ui.flatTitleBar, SIGNAL(clicked()), SLOT(updateChanged()) );
         //connect( m_ui.isDialog, SIGNAL(clicked()), SLOT(updateChanged()) );
     }

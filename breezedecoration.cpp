@@ -300,9 +300,9 @@ namespace Breeze
                 case InternalSettings::BorderVeryHuge: return baseSize*6;
                 case InternalSettings::BorderOversized: return baseSize*10;
             }
-
-        } else {
-
+        }
+        else
+        {
             switch (settings()->borderSize()) {
                 case KDecoration3::BorderSize::None: return 0;
                 case KDecoration3::BorderSize::NoSides:
@@ -322,16 +322,13 @@ namespace Breeze
                 case KDecoration3::BorderSize::Huge: return baseSize*5;
                 case KDecoration3::BorderSize::VeryHuge: return baseSize*6;
                 case KDecoration3::BorderSize::Oversized: return baseSize*10;
-
             }
-
         }
     }
 
     //________________________________________________________________
     void Decoration::reconfigure()
     {
-
         m_internalSettings = SettingsProvider::self()->internalSettings(this);
 
         setScaledCornerRadius();
@@ -344,7 +341,6 @@ namespace Breeze
 
         // shadow
         updateShadow();
-
     }
 
     //________________________________________________________________
@@ -619,7 +615,6 @@ namespace Breeze
         }
 
         update();
-
     }
 
     //________________________________________________________________
@@ -763,7 +758,6 @@ namespace Breeze
             case InternalSettings::ButtonLarge: return baseSize*2.5;
             case InternalSettings::ButtonVeryLarge: return baseSize*3.5;
         }
-
     }
 
     //________________________________________________________________
@@ -779,18 +773,21 @@ namespace Breeze
     //________________________________________________________________
     QPair<QRectF, Qt::Alignment> Decoration::captionRect() const
     {
-        if (hideTitleBar()) return qMakePair(QRectF(), Qt::AlignCenter);
-        else {
-
+        if (hideTitleBar())
+            return qMakePair(QRectF(), Qt::AlignCenter);
+        else
+        {
             const qreal extraTitleMargin = m_internalSettings->extraTitleMargin();
             const auto w = window();
-            const qreal leftOffset = m_leftButtons->buttons().isEmpty() ?
+            const qreal leftOffset = KDecoration3::snapToPixelGrid(m_leftButtons->buttons().isEmpty() ?
                 Metrics::TitleBar_SideMargin*settings()->smallSpacing() + extraTitleMargin :
-                m_leftButtons->geometry().x() + m_leftButtons->geometry().width() + Metrics::TitleBar_SideMargin*settings()->smallSpacing() + extraTitleMargin;
+                m_leftButtons->geometry().x() + m_leftButtons->geometry().width() + Metrics::TitleBar_SideMargin*settings()->smallSpacing() + extraTitleMargin,
+                w->scale());
 
-            const qreal rightOffset = m_rightButtons->buttons().isEmpty() ?
+            const qreal rightOffset = KDecoration3::snapToPixelGrid(m_rightButtons->buttons().isEmpty() ?
                 Metrics::TitleBar_SideMargin*settings()->smallSpacing() + extraTitleMargin:
-                size().width() - m_rightButtons->geometry().x() + Metrics::TitleBar_SideMargin*settings()->smallSpacing() + extraTitleMargin;
+                size().width() - m_rightButtons->geometry().x() + Metrics::TitleBar_SideMargin*settings()->smallSpacing() + extraTitleMargin,
+                w->scale());
 
             const qreal yOffset = settings()->smallSpacing()*Metrics::TitleBar_TopMargin;
             const QRectF maxRect(leftOffset, yOffset, size().width() - leftOffset - rightOffset, captionHeight());
@@ -827,13 +824,9 @@ namespace Breeze
                         return qMakePair(maxRect, Qt::AlignVCenter|Qt::AlignRight);
                     else
                         return qMakePair(fullRect, Qt::AlignCenter);
-
                 }
-
             }
-
         }
-
     }
 
     //________________________________________________________________

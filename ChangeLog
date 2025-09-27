@@ -1,6 +1,7 @@
 V6.4
 ---------
  * Bumped the version to 6.4 and imported some changes from Breeze 6.4.0.
+ * Used `KDecoration3::snapToPixelGrid` is a few places.
 
 V6.3
 ---------
