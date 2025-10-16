@@ -58,6 +58,7 @@ namespace Breeze
             // propagate all features found in mask to the output configuration
             if (exception.mask() & BorderSize)
                 configuration->setBorderSize(exception.borderSize());
+            configuration->setButtonStyle( exception.buttonStyle() );
             configuration->setHideTitleBar(exception.hideTitleBar());
             configuration->setOpaqueTitleBar(exception.opaqueTitleBar());
             configuration->setOpacityOverride(exception.opacityOverride());
@@ -110,6 +111,7 @@ namespace Breeze
                                   QStringLiteral("OpacityOverride"),
                                   QStringLiteral("FlatTitleBar"),
                                   QStringLiteral("Mask"),
+                                  QStringLiteral("ButtonStyle"),
                                   QStringLiteral("BorderSize")};
 
         // write all items

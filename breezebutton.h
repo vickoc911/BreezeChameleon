@@ -109,11 +109,28 @@ namespace Breeze
 
         //* draw button icon
         void drawIcon(QPainter *) const;
+        void drawIconPlasma( QPainter *) const;
+        void drawIconAqua( QPainter *) const;
+        void drawIconSunken( QPainter *) const;
+        void drawIconMacSymbols( QPainter *) const;
+        void drawIconOxygen( QPainter *) const;
+
+
+        //* generic outer glow (to be stored in tilesets)
+
+        void drawOuterGlow(QPainter *, const QColor&, int size) const;
+
+        //* generic outer shadow (to be stored in tilesets)
+        void drawShadow(QPainter *painter, const QColor& color, int value) const;
+       // void drawShadow(QPainter *, const QColor&, int size);
+
 
         //*@name colors
         //@{
+        QColor alphaColor(QColor color, qreal alpha) const;
         QColor foregroundColor(const QColor& inactiveCol) const;
         QColor backgroundColor() const;
+
         //@}
 
         //* active state change animation
