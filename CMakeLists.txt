@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16 FATAL_ERROR)
 
-project(breezeenhanced)
+project(breezechameleon)
 set(PROJECT_VERSION "6.4.0")
 set(PROJECT_VERSION_MAJOR 6)
 
@@ -11,9 +11,9 @@ set(KF6_MIN_VERSION "6.14.0")
 
 find_package(ECM ${KF6_MIN_VERSION} REQUIRED NO_MODULE)
 
-set(CPACK_PACKAGE_NAME "BreezeEnhanced")
+set(CPACK_PACKAGE_NAME "BreezeChameleon")
 set(CPACK_PACKAGING_INSTALL_PREFIX "/usr")
-set(CPACK_PACKAGE_FILE_NAME "BreezeEnhanced")
+set(CPACK_PACKAGE_FILE_NAME "BreezeChameleon")
 set(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Enhanced version of the Breeze Window Decoration for KWIN that pairs well with kvantum themes.")
 include(CPack)
@@ -50,13 +50,13 @@ add_subdirectory(libbreezecommon)
 
 ################# newt target #################
 ### plugin classes
-set(breezeenhanced_SRCS
+set(breezechameleon_SRCS
     breezebutton.cpp
     breezedecoration.cpp
     breezesettingsprovider.cpp)
 
 ### config classes
-set(breezeenhanced_config_SRCS
+set(breezechameleon_config_SRCS
     breezeexceptionlist.cpp
     config/breezeconfigwidget.cpp
     config/breezedetectwidget.cpp
@@ -65,16 +65,16 @@ set(breezeenhanced_config_SRCS
     config/breezeexceptionmodel.cpp
     config/breezeitemmodel.cpp
 )
-ki18n_wrap_ui(breezeenhanced_config_SRCS
+ki18n_wrap_ui(breezechameleon_config_SRCS
    config/ui/breezeconfigurationui.ui
    config/ui/breezeexceptiondialog.ui
    config/ui/breezeexceptionlistwidget.ui
 )
-add_library(breezeenhanced_STATIC STATIC ${breezeenhanced_config_SRCS})
+add_library(breezechameleon_STATIC STATIC ${breezechameleon_config_SRCS})
 # Needed to link this static lib to shared libs
-set_property(TARGET breezeenhanced_STATIC PROPERTY POSITION_INDEPENDENT_CODE ON)
-kconfig_add_kcfg_files(breezeenhanced_STATIC breezesettings.kcfgc)
-target_link_libraries(breezeenhanced_STATIC
+set_property(TARGET breezechameleon_STATIC PROPERTY POSITION_INDEPENDENT_CODE ON)
+kconfig_add_kcfg_files(breezechameleon_STATIC breezesettings.kcfgc)
+target_link_libraries(breezechameleon_STATIC
     PUBLIC
         Qt6::Core
         Qt6::Gui
@@ -88,20 +88,20 @@ target_link_libraries(breezeenhanced_STATIC
 )
 
 ### build library
-add_library(breezeenhanced MODULE
-    ${breezeenhanced_SRCS}
-    ${breezeenhanced_config_PART_FORMS_HEADERS})
+add_library(breezechameleon MODULE
+    ${breezechameleon_SRCS}
+    ${breezechameleon_config_PART_FORMS_HEADERS})
 
-target_link_libraries(breezeenhanced
+target_link_libraries(breezechameleon
     PRIVATE
-        breezeenhancedcommon6
-        breezeenhanced_STATIC
+        breezechameleoncommon6
+        breezechameleon_STATIC
         KF6::GuiAddons
         KF6::I18n
         KF6::WindowSystem
         KF6::KCMUtils)
 
 
-install(TARGETS breezeenhanced DESTINATION ${KDE_INSTALL_PLUGINDIR}/${KDECORATION_PLUGIN_DIR})
+install(TARGETS breezechameleon DESTINATION ${KDE_INSTALL_PLUGINDIR}/${KDECORATION_PLUGIN_DIR})
 
 add_subdirectory(config)
