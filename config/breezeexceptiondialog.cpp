@@ -51,6 +51,7 @@ namespace Breeze
         connect( m_ui.exceptionType, SIGNAL(currentIndexChanged(int)), SLOT(updateChanged()) );
         connect( m_ui.exceptionEditor, &QLineEdit::textChanged, this, &ExceptionDialog::updateChanged );
         connect( m_ui.borderSizeComboBox, SIGNAL(currentIndexChanged(int)), SLOT(updateChanged()) );
+        connect( m_ui.buttonStyleOverride, SIGNAL(currentIndexChanged(int)), SLOT(updateChanged()) );
 
         for( CheckBoxMap::iterator iter = m_checkboxes.begin(); iter != m_checkboxes.end(); ++iter )
         { connect( iter.value(), &QAbstractButton::clicked, this, &ExceptionDialog::updateChanged ); }
@@ -74,6 +75,7 @@ namespace Breeze
         m_ui.exceptionType->setCurrentIndex(m_exception->exceptionType() );
         m_ui.exceptionEditor->setText( m_exception->exceptionPattern() );
         m_ui.borderSizeComboBox->setCurrentIndex( m_exception->borderSize() );
+        m_ui.buttonStyleOverride->setCurrentIndex( m_exception->buttonStyle() );
         m_ui.hideTitleBar->setChecked( m_exception->hideTitleBar() );
         m_ui.opaqueTitleBar->setChecked( m_exception->opaqueTitleBar() );
         m_ui.opacityOverrideLabelSpinBox->setValue( m_exception->opacityOverride() );
@@ -94,6 +96,7 @@ namespace Breeze
         m_exception->setExceptionType( m_ui.exceptionType->currentIndex() );
         m_exception->setExceptionPattern( m_ui.exceptionEditor->text() );
         m_exception->setBorderSize( m_ui.borderSizeComboBox->currentIndex() );
+        m_exception->setButtonStyle( m_ui.buttonStyleOverride->currentIndex() );
         m_exception->setHideTitleBar( m_ui.hideTitleBar->isChecked() );
         m_exception->setOpaqueTitleBar( m_ui.opaqueTitleBar->isChecked() );
         m_exception->setOpacityOverride( m_ui.opacityOverrideLabelSpinBox->value() );
@@ -122,6 +125,8 @@ namespace Breeze
         else if (m_exception->exceptionPattern() != m_ui.exceptionEditor->text())
             modified = true;
         else if (m_exception->borderSize() != m_ui.borderSizeComboBox->currentIndex())
+            modified = true;
+        else if (m_exception->buttonStyle() != m_ui.buttonStyleOverride->currentIndex())
             modified = true;
         else if (m_exception->hideTitleBar() != m_ui.hideTitleBar->isChecked())
             modified = true;
