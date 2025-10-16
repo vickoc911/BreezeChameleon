@@ -214,11 +214,46 @@
          </property>
         </widget>
        </item>
-       <item row="6" column="0" colspan="3">
-        <widget class="QCheckBox" name="macOSButtons">
+       <item row="6" column="0">
+        <widget class="QLabel" name="label_4">
          <property name="text">
-          <string>macOS-like buttons</string>
+          <string>B&amp;utton Style:</string>
          </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+         <property name="buddy">
+          <cstring>buttonStyle</cstring>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="1">
+        <widget class="QComboBox" name="buttonStyle">
+         <item>
+          <property name="text">
+           <string>macOS</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Aqua</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Sunken</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Plasma</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Oxygen</string>
+          </property>
+         </item>
         </widget>
        </item>
        <item row="7" column="0" colspan="3">

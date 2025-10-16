@@ -2,9 +2,9 @@
     "KPlugin": {
         "Description": "Window decoration using the Breeze visual style for the Plasma Desktop",
         "EnabledByDefault": true,
-        "Name": "BreezeEnhanced",
+        "Name": "BreezeChameleon",
     },
-    "X-KDE-ConfigModule": "kcm_breezeenhanced",
+    "X-KDE-ConfigModule": "kcm_breezechameleon",
     "org.kde.kdecoration3": {
         "blur": true,
         "recommendedBorderSize": "None"

@@ -48,7 +48,7 @@
 
 #include <cmath>
 
-K_PLUGIN_FACTORY_WITH_JSON(BreezeDecoFactory, "breezeenhanced.json", registerPlugin<Breeze::Decoration>(); registerPlugin<Breeze::Button>();)
+K_PLUGIN_FACTORY_WITH_JSON(BreezeDecoFactory, "breezechameleon.json", registerPlugin<Breeze::Decoration>(); registerPlugin<Breeze::Button>();)
 
 namespace
 {
