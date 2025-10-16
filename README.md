@@ -42,7 +42,7 @@ After the installation, restart KWin by logging out and in. Then, BreezeChameleo
 Users of OpenSUSE Tumbleweed can do:
 ```sh
 sudo zypper ar obs://home:vcalles vcalles
-sudo zypper in -r trmdi BreezeChameleon
+sudo zypper in -r vcalles BreezeChameleon
 ```
 
 ## Screenshots:
