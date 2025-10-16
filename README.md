@@ -1,4 +1,4 @@
-# BreezeEnhanced
+# BreezeChameleon
 
 ## Overview
 
@@ -35,23 +35,14 @@ cmake .. -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release -DKDE_INSTALL_LI
 make
 sudo make install
 ```
-After the installation, restart KWin by logging out and in. Then, BreezeEnhanced will appear in *System Settings &rarr; Application Style &rarr; Window Decorations*.
+After the installation, restart KWin by logging out and in. Then, BreezeChameleon will appear in *System Settings &rarr; Application Style &rarr; Window Decorations*.
 
 ### Installation with package manager
 
-Users of Arch and its derivatives can install breeze-enhanced-git from AUR.
-
-Users of OpenSUSE Tumbleweed can do (thanks to trmdi at GitHub):
+Users of OpenSUSE Tumbleweed can do:
 ```sh
-sudo zypper ar obs://home:trmdi trmdi
-sudo zypper in -r trmdi BreezeEnhanced
-```
-
-Users of Ubuntu can do (thanks to krisives at GitHub):
-```sh
-sudo add-apt-repository ppa:krisives/breezeenhanced
-sudo apt-get update
-sudo apt install breezeenhanced
+sudo zypper ar obs://home:vcalles vcalles
+sudo zypper in -r trmdi BreezeChameleon
 ```
 
 ## Screenshots:
