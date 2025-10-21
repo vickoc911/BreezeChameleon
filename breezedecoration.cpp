@@ -284,9 +284,9 @@ namespace Breeze
                 case InternalSettings::BorderNone: return 0;
                 case InternalSettings::BorderNoSides:
                     if (bottom)
-                        return KDecoration3::snapToPixelGrid(std::max(4.0, baseSize), scale);
+                        return KDecoration3::snapToPixelGrid(std::max(4.0, baseSize + Metrics::Frame_FrameRadius), scale);
                     else
-                        return 0;
+                        return outlinesEnabled() ? std::max<qreal>(pixelSize, KDecoration3::snapToPixelGrid(1, scale)) : 0;
                 default:
                 case InternalSettings::BorderTiny:
                     if (bottom)
@@ -307,9 +307,9 @@ namespace Breeze
                 case KDecoration3::BorderSize::None: return 0;
                 case KDecoration3::BorderSize::NoSides:
                     if (bottom)
-                        return KDecoration3::snapToPixelGrid(std::max(4.0, baseSize), scale);
+                        return KDecoration3::snapToPixelGrid(std::max(4.0, baseSize + Metrics::Frame_FrameRadius), scale);
                     else
-                        return 0;
+                        return outlinesEnabled() ? std::max<qreal>(pixelSize, KDecoration3::snapToPixelGrid(1, scale)) : 0;
                 default:
                 case KDecoration3::BorderSize::Tiny:
                     if (bottom)
