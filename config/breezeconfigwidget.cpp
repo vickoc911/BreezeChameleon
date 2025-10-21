@@ -54,6 +54,7 @@ namespace Breeze
         connect(m_ui.macOSButtons, SIGNAL(clicked()), SLOT(updateChanged()) );
         connect(m_ui.opacitySpinBox, QOverload<int>::of(&QSpinBox::valueChanged), [this](int /*i*/) {updateChanged();});
         connect(m_ui.gradientSpinBox, QOverload<int>::of(&QSpinBox::valueChanged), [this](int /*i*/) {updateChanged();});
+        connect(m_ui.roundedCorners, &QAbstractButton::clicked, this, &ConfigWidget::updateChanged);
 
         connect(m_ui.fontComboBox, &QFontComboBox::currentFontChanged, [this] {updateChanged();});
         connect(m_ui.fontSizeSpinBox, QOverload<int>::of(&QSpinBox::valueChanged), [this](int /*i*/) {updateChanged();});
@@ -97,6 +98,7 @@ namespace Breeze
         m_ui.macOSButtons->setChecked(m_internalSettings->macOSButtons());
         m_ui.opacitySpinBox->setValue(m_internalSettings->backgroundOpacity());
         m_ui.gradientSpinBox->setValue(m_internalSettings->backgroundGradientIntensity());
+        m_ui.roundedCorners->setChecked(m_internalSettings->roundedCorners());
 
         QString fontStr = m_internalSettings->titleBarFont();
         if (fontStr.isEmpty())
@@ -163,6 +165,7 @@ namespace Breeze
         m_internalSettings->setMacOSButtons(m_ui.macOSButtons->isChecked());
         m_internalSettings->setBackgroundOpacity(m_ui.opacitySpinBox->value());
         m_internalSettings->setBackgroundGradientIntensity(m_ui.gradientSpinBox->value());
+        m_internalSettings->setRoundedCorners(m_ui.roundedCorners->isChecked());
 
         QFont f = m_ui.fontComboBox->currentFont();
         f.setPointSize(m_ui.fontSizeSpinBox->value());
@@ -242,6 +245,7 @@ namespace Breeze
         m_ui.macOSButtons->setChecked(m_internalSettings->macOSButtons());
         m_ui.opacitySpinBox->setValue(m_internalSettings->backgroundOpacity());
         m_ui.gradientSpinBox->setValue(m_internalSettings->backgroundGradientIntensity());
+        m_ui.roundedCorners->setChecked(m_internalSettings->roundedCorners());
 
         QFont f; f.fromString(QStringLiteral("Sans,11,-1,5,400,0,0,0,0,0,0,0,0,0,0,1"));
         m_ui.fontComboBox->setCurrentFont(f);
@@ -302,6 +306,8 @@ namespace Breeze
         else if (m_ui.opacitySpinBox->value() != m_internalSettings->backgroundOpacity())
             modified = true;
         else if (m_ui.gradientSpinBox->value() != m_internalSettings->backgroundGradientIntensity())
+            modified = true;
+        else if (m_ui.roundedCorners->isChecked() != m_internalSettings->roundedCorners()) {
             modified = true;
 
         // font (also see below)
