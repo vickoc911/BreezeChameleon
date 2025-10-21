@@ -215,5 +215,10 @@ namespace Breeze
         return qRound(static_cast<qreal>(a) * static_cast<qreal>(2.55));
     }
 
+    bool Decoration::outlinesEnabled() const
+    {
+        return !m_internalSettings->roundedCorners() && (m_internalSettings->outlineIntensity() != InternalSettings::OutlineOff);
+    }
+
 }
 

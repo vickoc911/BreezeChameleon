@@ -281,7 +281,8 @@ namespace Breeze
         if (m_internalSettings && (m_internalSettings->mask() & BorderSize))
         {
             switch (m_internalSettings->borderSize()) {
-                case InternalSettings::BorderNone: return 0;
+                case InternalSettings::BorderNone:
+                    return outlinesEnabled() ? std::max<qreal>(pixelSize, KDecoration3::snapToPixelGrid(1, scale)) : 0;
                 case InternalSettings::BorderNoSides:
                     if (bottom)
                         return KDecoration3::snapToPixelGrid(std::max(4.0, baseSize + Metrics::Frame_FrameRadius), scale);
@@ -304,7 +305,8 @@ namespace Breeze
         else
         {
             switch (settings()->borderSize()) {
-                case KDecoration3::BorderSize::None: return 0;
+                case KDecoration3::BorderSize::None:
+                    return outlinesEnabled() ? std::max<qreal>(pixelSize, KDecoration3::snapToPixelGrid(1, scale)) : 0;
                 case KDecoration3::BorderSize::NoSides:
                     if (bottom)
                         return KDecoration3::snapToPixelGrid(std::max(4.0, baseSize + Metrics::Frame_FrameRadius), scale);
@@ -399,6 +401,20 @@ namespace Breeze
         }
 
         setResizeOnlyBorders(QMargins(extSides, 0, extSides, extBottom));
+
+        qreal bottomLeftRadius = 0;
+        qreal bottomRightRadius = 0;
+        if (hasNoBorders() && m_internalSettings->roundedCorners()) {
+            if (!isBottomEdge()) {
+                if (!isLeftEdge()) {
+                    bottomLeftRadius = m_scaledCornerRadius;
+                }
+                if (!isRightEdge()) {
+                    bottomRightRadius = m_scaledCornerRadius;
+                }
+            }
+        }
+        setBorderRadius(KDecoration3::BorderRadius(0, 0, bottomRightRadius, bottomLeftRadius));
     }
 
     //________________________________________________________________
