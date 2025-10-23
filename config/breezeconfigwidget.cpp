@@ -51,7 +51,7 @@ namespace Breeze
         connect(m_ui.buttonStyle, SIGNAL(currentIndexChanged(int)), SLOT(updateChanged()) );
         connect(m_ui.titleMarginSpinBox, QOverload<int>::of(&QSpinBox::valueChanged), [this](int /*i*/) {updateChanged();});
         connect(m_ui.btnSpacingSpinBox, QOverload<int>::of(&QSpinBox::valueChanged), [this](int /*i*/) {updateChanged();});
-        connect(m_ui.drawBackgroundGradient, &QAbstractButton::clicked, this, &ConfigWidget::updateChanged);
+        connect(m_ui.typeDecorationWindow, SIGNAL(currentIndexChanged(int)), SLOT(updateChanged()) );
         connect(m_ui.opacitySpinBox, QOverload<int>::of(&QSpinBox::valueChanged), [this](int /*i*/) {updateChanged();});
         connect(m_ui.gradientSpinBox, QOverload<int>::of(&QSpinBox::valueChanged), [this](int /*i*/) {updateChanged();});
 
@@ -92,7 +92,7 @@ namespace Breeze
         m_ui.buttonStyle->setCurrentIndex ( m_internalSettings->buttonStyle() );
         m_ui.titleMarginSpinBox->setValue(m_internalSettings->extraTitleMargin());
         m_ui.btnSpacingSpinBox->setValue(m_internalSettings->buttonSpacing());
-        m_ui.drawBackgroundGradient->setChecked(m_internalSettings->drawBackgroundGradient());
+        m_ui.typeDecorationWindow->setCurrentIndex ( m_internalSettings->typeDecorationWindow() );
         m_ui.animationsEnabled->setChecked(m_internalSettings->animationsEnabled());
         m_ui.animationsDuration->setValue(m_internalSettings->animationsDuration());
         m_ui.opacitySpinBox->setValue(m_internalSettings->backgroundOpacity());
@@ -158,7 +158,7 @@ namespace Breeze
         m_internalSettings->setButtonStyle( m_ui.buttonStyle->currentIndex() );
         m_internalSettings->setExtraTitleMargin(m_ui.titleMarginSpinBox->value());
         m_internalSettings->setButtonSpacing(m_ui.btnSpacingSpinBox->value());
-        m_internalSettings->setDrawBackgroundGradient(m_ui.drawBackgroundGradient->isChecked());
+        m_internalSettings->setTypeDecorationWindow( m_ui.typeDecorationWindow->currentIndex() );
         m_internalSettings->setAnimationsEnabled(m_ui.animationsEnabled->isChecked());
         m_internalSettings->setAnimationsDuration(m_ui.animationsDuration->value());
         m_internalSettings->setBackgroundOpacity(m_ui.opacitySpinBox->value());
@@ -237,7 +237,7 @@ namespace Breeze
         m_ui.buttonStyle->setCurrentIndex( m_internalSettings->buttonStyle() );
         m_ui.titleMarginSpinBox->setValue(m_internalSettings->extraTitleMargin());
         m_ui.btnSpacingSpinBox->setValue(m_internalSettings->buttonSpacing());
-        m_ui.drawBackgroundGradient->setChecked(m_internalSettings->drawBackgroundGradient());
+        m_ui.typeDecorationWindow->setCurrentIndex( m_internalSettings->typeDecorationWindow() );
         m_ui.animationsEnabled->setChecked(m_internalSettings->animationsEnabled());
         m_ui.animationsDuration->setValue(m_internalSettings->animationsDuration());
         m_ui.opacitySpinBox->setValue(m_internalSettings->backgroundOpacity());
@@ -297,7 +297,7 @@ namespace Breeze
             modified = true;
         else if (m_ui.btnSpacingSpinBox->value() != m_internalSettings->buttonSpacing())
             modified = true;
-        else if (m_ui.drawBackgroundGradient->isChecked() !=  m_internalSettings->drawBackgroundGradient())
+        else if( m_ui.typeDecorationWindow->currentIndex() != m_internalSettings->typeDecorationWindow() )
             modified = true;
         else if (m_ui.opacitySpinBox->value() != m_internalSettings->backgroundOpacity())
             modified = true;
