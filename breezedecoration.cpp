@@ -41,12 +41,17 @@
 #include <QDBusMessage>
 #include <QDBusPendingCallWatcher>
 #include <QDBusPendingReply>
+#include <QImage>
+#include <QBrush>
+#include <QPixmap>
 #include <QPainter>
 #include <QPainterPath>
 #include <QTextStream>
 #include <QTimer>
+#include <QDebug>
 
 #include <cmath>
+#include "imgmetal.h"
 
 K_PLUGIN_FACTORY_WITH_JSON(BreezeDecoFactory, "breezechameleon.json", registerPlugin<Breeze::Decoration>(); registerPlugin<Breeze::Button>();)
 
@@ -677,35 +682,76 @@ namespace Breeze
         painter->setPen(Qt::NoPen);
 
         // render a linear gradient on title area and draw a light border at the top
-        if (m_internalSettings->drawBackgroundGradient() && !flatTitleBar())
-        {
-            QColor titleBarColor(this->titleBarColor());
-            titleBarColor.setAlpha(titleBarAlpha());
 
-            QLinearGradient gradient(0, 0, 0, titleRect.height());
-            QColor lightCol(titleBarColor.lighter(130 + m_internalSettings->backgroundGradientIntensity()));
-            gradient.setColorAt(0.0, lightCol);
-            gradient.setColorAt(0.99 / titleRect.height(), lightCol);
-            gradient.setColorAt(1.0 / titleRect.height(),
-                                titleBarColor.lighter(100 + m_internalSettings->backgroundGradientIntensity()));
-            gradient.setColorAt(1.0, titleBarColor);
 
-            painter->setBrush(gradient);
-        }
-        else
-        {
-            QColor titleBarColor(this->titleBarColor());
-            titleBarColor.setAlpha(titleBarAlpha());
+        if ( m_internalSettings->typeDecorationWindow() == 0 )
+            {
+                QColor titleBarColor(this->titleBarColor());
+                titleBarColor.setAlpha(titleBarAlpha());
 
-            QLinearGradient gradient(0, 0, 0, titleRect.height());
-            QColor lightCol(titleBarColor.lighter(130));
-            gradient.setColorAt(0.0, lightCol);
-            gradient.setColorAt(0.99 / titleRect.height(), lightCol);
-            gradient.setColorAt(1.0 / titleRect.height(), titleBarColor);
-            gradient.setColorAt(1.0, titleBarColor);
+                QLinearGradient gradient(0, 0, 0, titleRect.height());
+                QColor lightCol(titleBarColor.lighter(130));
+                gradient.setColorAt(0.0, lightCol);
+                gradient.setColorAt(0.99 / titleRect.height(), lightCol);
+                gradient.setColorAt(1.0 / titleRect.height(), titleBarColor);
+                gradient.setColorAt(1.0, titleBarColor);
 
-            painter->setBrush(gradient);
-        }
+                painter->setBrush(gradient);
+            }
+        else if ( m_internalSettings->typeDecorationWindow() == 1 )
+            {
+                QColor titleBarColor(this->titleBarColor());
+                titleBarColor.setAlpha(titleBarAlpha());
+
+                QLinearGradient gradient(0, 0, 0, titleRect.height());
+                QColor lightCol(titleBarColor.lighter(130 + m_internalSettings->backgroundGradientIntensity()));
+                gradient.setColorAt(0.0, lightCol);
+                gradient.setColorAt(0.99 / titleRect.height(), lightCol);
+                gradient.setColorAt(1.0 / titleRect.height(),
+                                    titleBarColor.lighter(100 + m_internalSettings->backgroundGradientIntensity()));
+                gradient.setColorAt(1.0, titleBarColor);
+
+                painter->setBrush(gradient);
+            }
+        else if ( m_internalSettings->typeDecorationWindow() == 2 )
+            {
+                QColor titleBarColor(this->titleBarColor());
+                titleBarColor.setAlpha(titleBarAlpha());
+
+                QLinearGradient gradient(0, 0, 0, titleRect.height());
+                QColor lightCol(titleBarColor.lighter(130));
+                gradient.setColorAt(0.0, lightCol);
+                gradient.setColorAt(0.99 / titleRect.height(), lightCol);
+                gradient.setColorAt(1.0 / titleRect.height(), titleBarColor);
+                gradient.setColorAt(1.0, titleBarColor);
+
+                painter->setBrush(gradient);
+
+                painter->setRenderHint(QPainter::SmoothPixmapTransform);
+
+                // Cargar imagen (archivo o recurso)
+                QPixmap bgTexture;
+                if (!bgTexture.loadFromData(imgmetal_png, tamano_imagen_m, "PNG")) {
+                    qWarning() << "No se pudo cargar la imagen";
+                    return;
+                }
+
+
+                // Escalar solo al ancho del widget, manteniendo la proporción
+                QPixmap scaled = bgTexture.scaled(
+                    rect().width(), // ancho del destino
+                    bgTexture.height(),            // altura base
+                    Qt::KeepAspectRatio,           // mantiene proporción
+                    Qt::SmoothTransformation       // suaviza la interpolación
+                );
+
+                QBrush brush(scaled);
+                brush.setStyle(Qt::TexturePattern); // explícito, aunque no siempre necesario
+
+                painter->setBrush(brush);
+                painter->setPen(Qt::NoPen); // si solo quieres rellenar
+                painter->drawRect(0,4,rect().width(),rect().height()); // rellena todo el widget con la textura repetida
+            }
 
         auto s = settings();
         if (isMaximized() || !s->isAlphaChannelSupported())

@@ -105,8 +105,8 @@
     </entry>
 
     <!-- gradient -->
-    <entry name="DrawBackgroundGradient" type = "Bool">
-        <default>true</default>
+    <entry name="TypeDecorationWindow" type = "Int">
+        <default>0</default>
     </entry>
 
     <entry name="BackgroundGradientIntensity" type = "Int">

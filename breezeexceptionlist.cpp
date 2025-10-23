@@ -59,6 +59,7 @@ namespace Breeze
             if (exception.mask() & BorderSize)
                 configuration->setBorderSize(exception.borderSize());
             configuration->setButtonStyle( exception.buttonStyle() );
+            configuration->setTypeDecorationWindow( exception.typeDecorationWindow() );
             configuration->setHideTitleBar(exception.hideTitleBar());
             configuration->setOpaqueTitleBar(exception.opaqueTitleBar());
             configuration->setOpacityOverride(exception.opacityOverride());
@@ -112,6 +113,7 @@ namespace Breeze
                                   QStringLiteral("FlatTitleBar"),
                                   QStringLiteral("Mask"),
                                   QStringLiteral("ButtonStyle"),
+                                  QStringLiteral("TypeDecorationWindow"),
                                   QStringLiteral("BorderSize")};
 
         // write all items
