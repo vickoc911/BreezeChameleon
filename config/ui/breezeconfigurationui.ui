@@ -181,11 +181,33 @@
          </item>
         </layout>
        </item>
-       <item row="4" column="0" colspan="3">
-        <widget class="QCheckBox" name="drawBackgroundGradient">
+       <item row="4" column="0" colspan="1">
+        <widget class="QLabel" name="label_41">
          <property name="text">
-          <string>Draw titlebar background gradient</string>
+          <string>Type of Decoration:</string>
          </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+        </item>
+        <item row="4" column="1" colspan="2">
+        <widget class="QComboBox" name="typeDecorationWindow">
+         <item>
+          <property name="text">
+           <string>Default</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Gradient</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Metal</string>
+          </property>
+         </item>
         </widget>
        </item>
        <item row="5" column="0">
@@ -215,15 +237,12 @@
         </widget>
        </item>
        <item row="6" column="0">
-        <widget class="QLabel" name="label_4">
+        <widget class="QLabel" name="label_42">
          <property name="text">
-          <string>B&amp;utton Style:</string>
+          <string>Button Style:</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-         <property name="buddy">
-          <cstring>buttonStyle</cstring>
          </property>
         </widget>
        </item>
@@ -659,38 +678,6 @@
     <hint type="destinationlabel">
      <x>141</x>
      <y>229</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>drawBackgroundGradient</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>gradientSpinBox</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>222</x>
-     <y>160</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>166</x>
-     <y>188</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>drawBackgroundGradient</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>label_7</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>222</x>
-     <y>160</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>64</x>
-     <y>57</y>
     </hint>
    </hints>
   </connection>
