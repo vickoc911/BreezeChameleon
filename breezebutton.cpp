@@ -790,7 +790,7 @@ namespace Breeze
                         else
                             baseColor = inactiveCol;
 
-                        QRectF r(0,0, 18, 18);
+                        QRectF r(0,0, 17, 17);
 
 
                         // --- Degradado principal (radial invertido) ---
@@ -871,7 +871,7 @@ namespace Breeze
                         else
                             baseColor = inactiveCol;
 
-                        QRectF r(0,0, 18, 18);
+                        QRectF r(0,0, 17, 17);
 
                         // --- Degradado principal (radial invertido) ---
                         QRadialGradient base(r.center(), r.width()/2, QPointF(r.center().x(), r.bottom()));
@@ -973,7 +973,7 @@ namespace Breeze
                         else
                             baseColor = inactiveCol;
 
-                        QRectF r(0,0, 18, 18);
+                        QRectF r(0,0, 17, 17);
 
                         // --- Degradado principal (radial invertido) ---
                         QRadialGradient base(r.center(), r.width()/2, QPointF(r.center().x(), r.bottom()));
@@ -1052,7 +1052,7 @@ namespace Breeze
                     else
                         baseColor = inactiveCol;
 
-                    QRectF r(0,0, 18, 18);
+                    QRectF r(0,0, 17, 17);
 
                     // --- Degradado principal (radial invertido) ---
                     QRadialGradient base(r.center(), r.width()/2, QPointF(r.center().x(), r.bottom()));
@@ -1135,7 +1135,7 @@ namespace Breeze
                     else
                         baseColor = inactiveCol;
 
-                    QRectF r(0,0, 18, 18);
+                    QRectF r(0,0, 17, 17);
 
                     // --- Degradado principal (radial invertido) ---
                     QRadialGradient base(r.center(), r.width()/2, QPointF(r.center().x(), r.bottom()));
@@ -1222,7 +1222,7 @@ namespace Breeze
                     else
                         baseColor = inactiveCol;
 
-                    QRectF r(0,0, 18, 18);
+                    QRectF r(0,0, 17, 17);
 
                     // --- Degradado principal (radial invertido) ---
                     QRadialGradient base(r.center(), r.width()/2, QPointF(r.center().x(), r.bottom()));
@@ -1314,7 +1314,7 @@ namespace Breeze
                         else
                             baseColor = inactiveCol;
 
-                        QRectF r(0,0, 18, 18);
+                        QRectF r(0,0, 17, 17);
 
                         // --- Degradado principal (radial invertido) ---
                         QRadialGradient base(r.center(), r.width()/2, QPointF(r.center().x(), r.bottom()));
@@ -1406,7 +1406,7 @@ namespace Breeze
                     else
                         baseColor = inactiveCol;
 
-                    QRectF r(0,0, 18, 18);
+                    QRectF r(0,0, 17, 17);
 
                     // --- Degradado principal (radial invertido) ---
                     QRadialGradient base(r.center(), r.width()/2, QPointF(r.center().x(), r.bottom()));
@@ -1491,7 +1491,7 @@ namespace Breeze
                     else
                         baseColor = inactiveCol;
 
-                    QRectF r(0,0, 18, 18);
+                    QRectF r(0,0, 17, 17);
 
                     // --- Degradado principal (radial invertido) ---
                     QRadialGradient base(r.center(), r.width()/2, QPointF(r.center().x(), r.bottom()));
