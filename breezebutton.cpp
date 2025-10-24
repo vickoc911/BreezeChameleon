@@ -792,6 +792,12 @@ namespace Breeze
 
                         QRectF r(0,0, 17, 17);
 
+                        // button shadow
+                        if (!isHovered()) {
+                            painter->save();
+                            drawShadow(painter, Qt::black, 21,0);
+                            painter->restore();
+                        }
 
                         // --- Degradado principal (radial invertido) ---
                         QRadialGradient base(r.center(), r.width()/2, QPointF(r.center().x(), r.bottom()));
@@ -872,6 +878,13 @@ namespace Breeze
                             baseColor = inactiveCol;
 
                         QRectF r(0,0, 17, 17);
+
+                        // button shadow
+                        if (!isHovered()) {
+                            painter->save();
+                            drawShadow(painter, Qt::black, 21,0);
+                            painter->restore();
+                        }
 
                         // --- Degradado principal (radial invertido) ---
                         QRadialGradient base(r.center(), r.width()/2, QPointF(r.center().x(), r.bottom()));
@@ -975,6 +988,13 @@ namespace Breeze
 
                         QRectF r(0,0, 17, 17);
 
+                        // button shadow
+                        if (!isHovered()) {
+                            painter->save();
+                            drawShadow(painter, Qt::black, 21,0);
+                            painter->restore();
+                        }
+
                         // --- Degradado principal (radial invertido) ---
                         QRadialGradient base(r.center(), r.width()/2, QPointF(r.center().x(), r.bottom()));
                         base.setColorAt(0.0, baseColor.lighter(110));   // parte baja brillante
@@ -1053,6 +1073,13 @@ namespace Breeze
                         baseColor = inactiveCol;
 
                     QRectF r(0,0, 17, 17);
+
+                    // button shadow
+                    if (!isHovered()) {
+                        painter->save();
+                        drawShadow(painter, Qt::black, 21,0);
+                        painter->restore();
+                    }
 
                     // --- Degradado principal (radial invertido) ---
                     QRadialGradient base(r.center(), r.width()/2, QPointF(r.center().x(), r.bottom()));
@@ -1136,6 +1163,13 @@ namespace Breeze
                         baseColor = inactiveCol;
 
                     QRectF r(0,0, 17, 17);
+
+                    // button shadow
+                    if (!isHovered()) {
+                        painter->save();
+                        drawShadow(painter, Qt::black, 21,0);
+                        painter->restore();
+                    }
 
                     // --- Degradado principal (radial invertido) ---
                     QRadialGradient base(r.center(), r.width()/2, QPointF(r.center().x(), r.bottom()));
@@ -1223,6 +1257,13 @@ namespace Breeze
                         baseColor = inactiveCol;
 
                     QRectF r(0,0, 17, 17);
+
+                    // button shadow
+                    if (!isHovered()) {
+                        painter->save();
+                        drawShadow(painter, Qt::black, 21,0);
+                        painter->restore();
+                    }
 
                     // --- Degradado principal (radial invertido) ---
                     QRadialGradient base(r.center(), r.width()/2, QPointF(r.center().x(), r.bottom()));
@@ -1316,6 +1357,13 @@ namespace Breeze
 
                         QRectF r(0,0, 17, 17);
 
+                        // button shadow
+                        if (!isHovered()) {
+                            painter->save();
+                            drawShadow(painter, Qt::black, 21,0);
+                            painter->restore();
+                        }
+
                         // --- Degradado principal (radial invertido) ---
                         QRadialGradient base(r.center(), r.width()/2, QPointF(r.center().x(), r.bottom()));
                         base.setColorAt(0.0, baseColor.lighter(110));   // parte baja brillante
@@ -1408,6 +1456,13 @@ namespace Breeze
 
                     QRectF r(0,0, 17, 17);
 
+                    // button shadow
+                    if (!isHovered()) {
+                        painter->save();
+                        drawShadow(painter, Qt::black, 21,0);
+                        painter->restore();
+                    }
+
                     // --- Degradado principal (radial invertido) ---
                     QRadialGradient base(r.center(), r.width()/2, QPointF(r.center().x(), r.bottom()));
                     base.setColorAt(0.0, baseColor.lighter(110));   // parte baja brillante
@@ -1492,6 +1547,13 @@ namespace Breeze
                         baseColor = inactiveCol;
 
                     QRectF r(0,0, 17, 17);
+
+                    // button shadow
+                    if (!isHovered()) {
+                        painter->save();
+                        drawShadow(painter, Qt::black, 21,0);
+                        painter->restore();
+                    }
 
                     // --- Degradado principal (radial invertido) ---
                     QRadialGradient base(r.center(), r.width()/2, QPointF(r.center().x(), r.bottom()));
@@ -3002,7 +3064,7 @@ namespace Breeze
                     // button shadow
                     if (!isHovered()) {
                         painter->save();
-                        drawShadow(painter, Qt::black, 21);
+                        drawShadow(painter, Qt::black, 21,1);
                         painter->restore();
                     }
 
@@ -3097,7 +3159,7 @@ namespace Breeze
                     // button shadow
                     if (!isHovered()) {
                         painter->save();
-                        drawShadow(painter, Qt::black, 21);
+                        drawShadow(painter, Qt::black, 21,1);
                         painter->restore();
                     }
 
@@ -3204,7 +3266,7 @@ namespace Breeze
                     // button shadow
                     if (color.isValid()) {
                         painter->save();
-                        drawShadow(painter, Qt::black, 21);
+                        drawShadow(painter, Qt::black, 21,1);
                         painter->restore();
                     }
 
@@ -3295,7 +3357,7 @@ namespace Breeze
                     // button shadow
                     if (color.isValid()) {
                         painter->save();
-                        drawShadow(painter, Qt::black, 21);
+                        drawShadow(painter, Qt::black, 21,1);
                         painter->restore();
                     }
 
@@ -3386,7 +3448,7 @@ namespace Breeze
                     // button shadow
                     if (color.isValid()) {
                         painter->save();
-                        drawShadow(painter, Qt::black, 21);
+                        drawShadow(painter, Qt::black, 21,1);
                         painter->restore();
                     }
 
@@ -3481,7 +3543,7 @@ namespace Breeze
                     // button shadow
                     if (color.isValid()) {
                         painter->save();
-                        drawShadow(painter, Qt::black, 21);
+                        drawShadow(painter, Qt::black, 21,1);
                         painter->restore();
                     }
 
@@ -3576,7 +3638,7 @@ namespace Breeze
                     // button shadow
                     if (color.isValid()) {
                         painter->save();
-                        drawShadow(painter, Qt::black, 21);
+                        drawShadow(painter, Qt::black, 21,1);
                         painter->restore();
                     }
 
@@ -3672,7 +3734,7 @@ namespace Breeze
                     // button shadow
                     if (color.isValid()) {
                         painter->save();
-                        drawShadow(painter, Qt::black, 21);
+                        drawShadow(painter, Qt::black, 21,1);
                         painter->restore();
                     }
 
@@ -4081,14 +4143,14 @@ namespace Breeze
     }
 
     //___________________________________________________________________________________________
-    void Button::drawShadow(QPainter *painter, const QColor &color, int size) const
+    void Button::drawShadow(QPainter *painter, const QColor &color, int size, int pshadowx) const
     {
         const qreal m(qreal(size - 2) * 0.5);
         const qreal offset(0.6);
         const qreal k0((m - 4.0) / m);
         const qreal shadowGain = 1.5;
 
-        QRadialGradient shadowGradient(m + 1.0, m + offset + 1.0, m);
+        QRadialGradient shadowGradient(m + pshadowx, m + offset + 1.0, m);
         for (int i = 0; i < 8; i++) {
             // sinusoidal gradient
             const qreal k1((k0 * qreal(8 - i) + qreal(i)) * 0.125);

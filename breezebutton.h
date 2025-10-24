@@ -121,7 +121,7 @@ namespace Breeze
         void drawOuterGlow(QPainter *, const QColor&, int size) const;
 
         //* generic outer shadow (to be stored in tilesets)
-        void drawShadow(QPainter *painter, const QColor& color, int value) const;
+        void drawShadow(QPainter *painter, const QColor& color, int size, int pshadowx) const;
        // void drawShadow(QPainter *, const QColor&, int size);
 
 
