@@ -118,6 +118,8 @@ namespace Breeze
         QMarginsF bordersFor(qreal scale) const;
         //@}
 
+        inline bool outlinesEnabled() const;
+
         //*@name color customization
         //@{
         inline bool opaqueTitleBar() const;
@@ -130,7 +132,7 @@ namespace Breeze
         KDecoration3::DecorationButtonGroup *m_rightButtons = nullptr;
 
         //*frame corner radius, scaled according to DPI
-        qreal m_scaledCornerRadius = 3;
+        qreal m_scaledCornerRadius = 9;
     };
 
     bool Decoration::hasBorders() const
@@ -217,7 +219,7 @@ namespace Breeze
 
     bool Decoration::outlinesEnabled() const
     {
-        return !m_internalSettings->roundedCorners() && (m_internalSettings->outlineIntensity() != InternalSettings::OutlineOff);
+        return m_internalSettings->outlineIntensity() != InternalSettings::OutlineOff;
     }
 
 }

@@ -131,6 +131,26 @@ namespace
             return s_shadowParams[3];
         }
     }
+
+    inline qreal lookupOutlineIntensity(int intensity)
+    {
+        switch (intensity) {
+            case Breeze::InternalSettings::OutlineOff:
+                return 0;
+            case Breeze::InternalSettings::OutlineLow:
+                return Breeze::Metrics::Bias_Default / 2;
+            case Breeze::InternalSettings::OutlineMedium:
+                return Breeze::Metrics::Bias_Default;
+            case Breeze::InternalSettings::OutlineHigh:
+                return Breeze::Metrics::Bias_Default * 2;
+            case Breeze::InternalSettings::OutlineMaximum:
+                return Breeze::Metrics::Bias_Default * 3;
+            default:
+                // Fallback to the Medium intensity.
+                return Breeze::Metrics::Bias_Default;
+        }
+    }
+
 }
 
 namespace Breeze
@@ -211,6 +231,7 @@ namespace Breeze
         connect(s.get(), &KDecoration3::DecorationSettings::reconfigured, SettingsProvider::self(), &SettingsProvider::reconfigure, Qt::UniqueConnection);
         connect(s.get(), &KDecoration3::DecorationSettings::reconfigured, this, &Decoration::updateButtonsGeometryDelayed);
 
+        connect(w, &KDecoration3::DecoratedWindow::activeChanged, this, &Decoration::recalculateBorders);
         connect(w, &KDecoration3::DecoratedWindow::adjacentScreenEdgesChanged, this, &Decoration::recalculateBorders);
         connect(w, &KDecoration3::DecoratedWindow::maximizedHorizontallyChanged, this, &Decoration::recalculateBorders);
         connect(w, &KDecoration3::DecoratedWindow::maximizedVerticallyChanged, this, &Decoration::recalculateBorders);
@@ -282,12 +303,12 @@ namespace Breeze
         {
             switch (m_internalSettings->borderSize()) {
                 case InternalSettings::BorderNone:
-                    return outlinesEnabled() ? std::max<qreal>(pixelSize, KDecoration3::snapToPixelGrid(1, scale)) : 0;
+                    return 0;
                 case InternalSettings::BorderNoSides:
                     if (bottom)
                         return KDecoration3::snapToPixelGrid(std::max(4.0, baseSize + Metrics::Frame_FrameRadius), scale);
                     else
-                        return outlinesEnabled() ? std::max<qreal>(pixelSize, KDecoration3::snapToPixelGrid(1, scale)) : 0;
+                        return 0;
                 default:
                 case InternalSettings::BorderTiny:
                     if (bottom)
@@ -306,12 +327,12 @@ namespace Breeze
         {
             switch (settings()->borderSize()) {
                 case KDecoration3::BorderSize::None:
-                    return outlinesEnabled() ? std::max<qreal>(pixelSize, KDecoration3::snapToPixelGrid(1, scale)) : 0;
+                    return 0;
                 case KDecoration3::BorderSize::NoSides:
                     if (bottom)
                         return KDecoration3::snapToPixelGrid(std::max(4.0, baseSize + Metrics::Frame_FrameRadius), scale);
                     else
-                        return outlinesEnabled() ? std::max<qreal>(pixelSize, KDecoration3::snapToPixelGrid(1, scale)) : 0;
+                        return 0;
                 default:
                 case KDecoration3::BorderSize::Tiny:
                     if (bottom)
@@ -415,6 +436,26 @@ namespace Breeze
             }
         }
         setBorderRadius(KDecoration3::BorderRadius(0, 0, bottomRightRadius, bottomLeftRadius));
+
+        if (isMaximized() || !outlinesEnabled()) {
+            setBorderOutline(KDecoration3::BorderOutline());
+        } else {
+            const auto color = KColorUtils::mix(window()->color(window()->isActive() ? ColorGroup::Active : ColorGroup::Inactive, ColorRole::Frame),
+                                                window()->palette().text().color(),
+                                                lookupOutlineIntensity(m_internalSettings->outlineIntensity()));
+            const qreal thickness = std::max(KDecoration3::pixelSize(window()->scale()), KDecoration3::snapToPixelGrid(1, window()->scale()));
+
+            qreal bottomLeftRadius = 0;
+            qreal bottomRightRadius = 0;
+            if (!hasNoBorders() || m_internalSettings->roundedCorners()) {
+                bottomLeftRadius = m_scaledCornerRadius;
+                bottomRightRadius = m_scaledCornerRadius;
+            }
+
+            const auto radius = KDecoration3::BorderRadius(m_scaledCornerRadius, m_scaledCornerRadius, bottomRightRadius, bottomLeftRadius);
+            setBorderOutline(KDecoration3::BorderOutline(thickness, color, radius));
+        }
+
     }
 
     //________________________________________________________________
@@ -761,6 +802,7 @@ namespace Breeze
         m_rightButtons->paint(painter, repaintRegion);
     }
 
+
     //________________________________________________________________
     int Decoration::buttonSize() const
     {
@@ -942,7 +984,8 @@ namespace Breeze
         // On X11, the smallSpacing value is used for scaling.
         // On Wayland, this value has constant factor of 2.
         // Removing it will break radius scaling on X11.
-        m_scaledCornerRadius = KDecoration3::snapToPixelGrid(Metrics::Frame_FrameRadius * settings()->smallSpacing(), window()->nextScale());
+       // m_scaledCornerRadius = KDecoration3::snapToPixelGrid(Metrics::Frame_FrameRadius * settings()->smallSpacing(), window()->nextScale());
+        m_scaledCornerRadius = 9;
     }
 
     //________________________________________________________________
