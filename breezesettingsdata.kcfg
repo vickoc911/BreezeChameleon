@@ -51,7 +51,7 @@
         <choice name="OutlineHigh"/>
         <choice name="OutlineMaximum"/>
       </choices>
-      <default>OutlineMedium</default>
+      <default>OutlineOff</default>
     </entry>
 
   </group>
