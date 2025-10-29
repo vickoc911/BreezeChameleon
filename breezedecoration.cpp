@@ -772,18 +772,6 @@ namespace Breeze
             }
         else if ( m_internalSettings->typeDecorationWindow() == 2 )
             {
-                QColor titleBarColor(this->titleBarColor());
-                titleBarColor.setAlpha(titleBarAlpha());
-
-                QLinearGradient gradient(0, 0, 0, titleRect.height());
-                QColor lightCol(titleBarColor.lighter(130));
-                gradient.setColorAt(0.0, lightCol);
-                gradient.setColorAt(0.99 / titleRect.height(), lightCol);
-                gradient.setColorAt(1.0 / titleRect.height(), titleBarColor);
-                gradient.setColorAt(1.0, titleBarColor);
-
-                painter->setBrush(gradient);
-
                 painter->setRenderHint(QPainter::SmoothPixmapTransform);
 
                 // Cargar imagen (archivo o recurso)
@@ -807,7 +795,7 @@ namespace Breeze
 
                 painter->setBrush(brush);
                 painter->setPen(Qt::NoPen); // si solo quieres rellenar
-                painter->drawRect(0,4,rect().width(),rect().height()); // rellena todo el widget con la textura repetida
+          //      painter->drawRect(0,rect().height(),rect().width(),rect().height()); // rellena todo el widget con la textura repetida
             }
 
         auto s = settings();
