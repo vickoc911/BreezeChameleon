@@ -118,6 +118,8 @@ namespace Breeze
         QMarginsF bordersFor(qreal scale) const;
         //@}
 
+        inline bool outlinesEnabled() const;
+
         //*@name color customization
         //@{
         inline bool opaqueTitleBar() const;
@@ -213,6 +215,11 @@ namespace Breeze
                                                            : m_internalSettings->backgroundOpacity();
         a =  qBound(0, a, 100);
         return qRound(static_cast<qreal>(a) * static_cast<qreal>(2.55));
+    }
+
+    bool Decoration::outlinesEnabled() const
+    {
+        return m_internalSettings->outlineIntensity() != InternalSettings::OutlineOff;
     }
 
 }

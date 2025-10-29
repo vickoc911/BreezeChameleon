@@ -36,7 +36,7 @@ namespace Breeze
     namespace Metrics
     {
         //* corner radius, in units of small spacing
-        static constexpr qreal Frame_FrameRadius = 2;
+        static constexpr qreal Frame_FrameRadius = 2.5;
 
         //* titlebar metrics, in units of small spacing
         static constexpr int TitleBar_TopMargin = 2;
@@ -46,6 +46,10 @@ namespace Breeze
 
         // shadow dimensions (pixels)
         static constexpr int Shadow_Overlap = 3;
+        // frame intensities (called bias in KColorUtilities::Mix)
+        // Keep this value in sync with Bias_Default in
+        // kstyle/breezemetrics.h
+        static constexpr qreal Bias_Default = 0.20;
     }
 
     //* standard pen widths
