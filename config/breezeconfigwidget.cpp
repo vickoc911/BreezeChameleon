@@ -54,6 +54,8 @@ namespace Breeze
         connect(m_ui.typeDecorationWindow, SIGNAL(currentIndexChanged(int)), SLOT(updateChanged()) );
         connect(m_ui.opacitySpinBox, QOverload<int>::of(&QSpinBox::valueChanged), [this](int /*i*/) {updateChanged();});
         connect(m_ui.gradientSpinBox, QOverload<int>::of(&QSpinBox::valueChanged), [this](int /*i*/) {updateChanged();});
+        connect(m_ui.roundedCorners, &QAbstractButton::clicked, this, &ConfigWidget::updateChanged);
+        connect(m_ui.roundSpinBox, QOverload<int>::of(&QSpinBox::valueChanged), [this](int /*i*/) {updateChanged();});
 
         connect(m_ui.fontComboBox, &QFontComboBox::currentFontChanged, [this] {updateChanged();});
         connect(m_ui.fontSizeSpinBox, QOverload<int>::of(&QSpinBox::valueChanged), [this](int /*i*/) {updateChanged();});
@@ -72,6 +74,7 @@ namespace Breeze
         connect(m_ui.shadowSize, SIGNAL(currentIndexChanged(int)), SLOT(updateChanged()));
         connect(m_ui.shadowStrength, SIGNAL(valueChanged(int)), SLOT(updateChanged()));
         connect(m_ui.shadowColor, &KColorButton::changed, this, &ConfigWidget::updateChanged);
+        connect(m_ui.outlineIntensity, SIGNAL(activated(int)), SLOT(updateChanged()));
 
         // track exception changes
         connect(m_ui.exceptions, &ExceptionListWidget::changed, this, &ConfigWidget::updateChanged);
@@ -97,6 +100,8 @@ namespace Breeze
         m_ui.animationsDuration->setValue(m_internalSettings->animationsDuration());
         m_ui.opacitySpinBox->setValue(m_internalSettings->backgroundOpacity());
         m_ui.gradientSpinBox->setValue(m_internalSettings->backgroundGradientIntensity());
+        m_ui.roundedCorners->setChecked(m_internalSettings->roundedCorners());
+        m_ui.roundSpinBox->setValue(m_internalSettings->roundIntensity());
 
         QString fontStr = m_internalSettings->titleBarFont();
         if (fontStr.isEmpty())
@@ -136,6 +141,13 @@ namespace Breeze
         m_ui.shadowStrength->setValue(qRound(qreal(m_internalSettings->shadowStrength()*100)/255));
         m_ui.shadowColor->setColor(m_internalSettings->shadowColor());
 
+        // load outline intensity
+        if (m_internalSettings->outlineIntensity() <= InternalSettings::OutlineMaximum) {
+            m_ui.outlineIntensity->setCurrentIndex(m_internalSettings->outlineIntensity());
+        } else {
+            m_ui.outlineIntensity->setCurrentIndex(InternalSettings::OutlineMedium);
+        }
+
         // load exceptions
         ExceptionList exceptions;
         exceptions.readConfig(m_configuration);
@@ -163,6 +175,8 @@ namespace Breeze
         m_internalSettings->setAnimationsDuration(m_ui.animationsDuration->value());
         m_internalSettings->setBackgroundOpacity(m_ui.opacitySpinBox->value());
         m_internalSettings->setBackgroundGradientIntensity(m_ui.gradientSpinBox->value());
+        m_internalSettings->setRoundedCorners(m_ui.roundedCorners->isChecked());
+        m_internalSettings->setRoundIntensity(m_ui.roundSpinBox->value());
 
         QFont f = m_ui.fontComboBox->currentFont();
         f.setPointSize(m_ui.fontSizeSpinBox->value());
@@ -193,6 +207,7 @@ namespace Breeze
         m_internalSettings->setShadowSize(m_ui.shadowSize->currentIndex());
         m_internalSettings->setShadowStrength(qRound( qreal(m_ui.shadowStrength->value()*255)/100));
         m_internalSettings->setShadowColor(m_ui.shadowColor->color());
+        m_internalSettings->setOutlineIntensity(m_ui.outlineIntensity->currentIndex());
 
         // save configuration
         m_internalSettings->save();
@@ -242,6 +257,8 @@ namespace Breeze
         m_ui.animationsDuration->setValue(m_internalSettings->animationsDuration());
         m_ui.opacitySpinBox->setValue(m_internalSettings->backgroundOpacity());
         m_ui.gradientSpinBox->setValue(m_internalSettings->backgroundGradientIntensity());
+        m_ui.roundedCorners->setChecked(m_internalSettings->roundedCorners());
+        m_ui.roundSpinBox->setValue(m_internalSettings->roundIntensity());
 
         QFont f; f.fromString(QStringLiteral("Sans,11,-1,5,400,0,0,0,0,0,0,0,0,0,0,1"));
         m_ui.fontComboBox->setCurrentFont(f);
@@ -272,6 +289,7 @@ namespace Breeze
         m_ui.shadowSize->setCurrentIndex(m_internalSettings->shadowSize());
         m_ui.shadowStrength->setValue(qRound(qreal(m_internalSettings->shadowStrength()*100)/255));
         m_ui.shadowColor->setColor(m_internalSettings->shadowColor());
+        m_ui.outlineIntensity->setCurrentIndex(m_internalSettings->outlineIntensity());
 
     }
 
@@ -303,6 +321,10 @@ namespace Breeze
             modified = true;
         else if (m_ui.gradientSpinBox->value() != m_internalSettings->backgroundGradientIntensity())
             modified = true;
+        else if (m_ui.roundedCorners->isChecked() != m_internalSettings->roundedCorners())
+            modified = true;
+        else if (m_ui.roundSpinBox->value() != m_internalSettings->roundIntensity())
+            modified = true;
 
         // font (also see below)
         else if (m_ui.fontComboBox->currentFont().toString() != f.family())
@@ -324,6 +346,8 @@ namespace Breeze
         else if (qRound(qreal(m_ui.shadowStrength->value()*255)/100) != m_internalSettings->shadowStrength())
             modified = true;
         else if (m_ui.shadowColor->color() != m_internalSettings->shadowColor())
+            modified = true;
+        else if (m_ui.outlineIntensity->currentIndex() != m_internalSettings->outlineIntensity())
             modified = true;
 
         // exceptions
