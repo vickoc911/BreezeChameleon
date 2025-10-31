@@ -162,6 +162,8 @@ namespace Breeze
                 drawIconPlasma( painter );
             else if ( d && d->internalSettings()->buttonStyle() == 4 )
                 drawIconOxygen( painter );
+            else if ( d && d->internalSettings()->buttonStyle() == 5 )
+                drawIconDrop( painter );
             }
         painter->restore();
 
@@ -784,87 +786,32 @@ namespace Breeze
                 {
 
                     QColor baseColor;
+                    if ( !isInactive )
+                        baseColor = QColor(255, 92, 87);
+                    else
+                        baseColor = inactiveCol;
 
-                        if ( !isInactive )
-                            baseColor = QColor(255, 92, 87);
-                        else
-                            baseColor = inactiveCol;
+                    // button shadow
+                    if (!isHovered()) {
+                        painter->save();
+                        drawShadow(painter, Qt::black, 21,0);
+                        painter->restore();
+                    }
 
-                        QRectF r(0,0, 17, 17);
+                    drawAquab(painter, baseColor, 17);
 
-                        // button shadow
-                        if (!isHovered()) {
-                            painter->save();
-                            drawShadow(painter, Qt::black, 21,0);
-                            painter->restore();
-                        }
+                    if (backgroundColor.isValid()) {
 
-                        // --- Degradado principal (radial invertido) ---
-                        QRadialGradient base(r.center(), r.width()/2, QPointF(r.center().x(), r.bottom()));
-                        base.setColorAt(0.0, baseColor.lighter(110));   // parte baja brillante
-                        base.setColorAt(0.6, baseColor);
-                        base.setColorAt(1.0, baseColor.darker(110));    // borde oscuro
-                        painter->setBrush(base);
-                        painter->setPen(baseColor.darker(140));
-                        painter->drawEllipse(r);
+                            drawAquab(painter, baseColor, 18);
 
-                        // --- Highlight superior ovalado (reflejo Aqua) ---
-                        QRectF highlightRect(r.left()+4, r.top()+1, r.width()-8, r.height()/2.5);
-                        QLinearGradient gloss(highlightRect.topLeft(), highlightRect.bottomLeft());
-                        gloss.setColorAt(0.0, QColor(255,255,255,180));
-                        gloss.setColorAt(1.0, QColor(255,255,255,0));
-                        painter->setBrush(gloss);
-                        painter->setPen(Qt::NoPen);
-                        painter->drawEllipse(highlightRect);
+                    }
+                    if (isHovered()) {
+                        painter->setPen(pen);
+                        painter->setBrush(symbolColor);
 
-                        // --- Bisel interior claro ---
-                        QRectF highlightRectb(r.left()+2, r.top()+r.height()/1.9, r.width()-4, r.height()/2.2);
-                        QRadialGradient innerHighlight(r.center(), r.width()/2, r.center());
-                        innerHighlight.setColorAt(0.0, QColor(255, 255, 255, 0));
-                        innerHighlight.setColorAt(1.0, QColor(255, 255, 255, 55));
-                        painter->setBrush(innerHighlight);
-                        painter->setPen(Qt::NoPen);
-                        painter->drawEllipse(highlightRectb);
-
-                        if (backgroundColor.isValid())
-                        {
-                            QRectF r(0,0, 18, 18);
-
-                            // --- Degradado principal (radial invertido) ---
-                            QRadialGradient base(r.center(), r.width()/2, QPointF(r.center().x(), r.bottom()));
-                            base.setColorAt(0.0, baseColor.lighter(110));   // parte baja brillante
-                            base.setColorAt(0.6, baseColor);
-                            base.setColorAt(1.0, baseColor.darker(110));    // borde oscuro
-                            painter->setBrush(base);
-                            painter->setPen(baseColor.darker(140));
-                            painter->drawEllipse(r);
-
-                            // --- Highlight superior ovalado (reflejo Aqua) ---
-                            QRectF highlightRect(r.left()+4, r.top()+1, r.width()-8, r.height()/2.5);
-                            QLinearGradient gloss(highlightRect.topLeft(), highlightRect.bottomLeft());
-                            gloss.setColorAt(0.0, QColor(255,255,255,180));
-                            gloss.setColorAt(1.0, QColor(255,255,255,0));
-                            painter->setBrush(gloss);
-                            painter->setPen(Qt::NoPen);
-                            painter->drawEllipse(highlightRect);
-
-                            // --- Bisel interior claro ---
-                            QRectF highlightRectb(r.left()+2, r.top()+r.height()/1.9, r.width()-4, r.height()/2.2);
-                            QRadialGradient innerHighlight(r.center(), r.width()/2, r.center());
-                            innerHighlight.setColorAt(0.0, QColor(255, 255, 255, 0));
-                            innerHighlight.setColorAt(1.0, QColor(255, 255, 255, 55));
-                            painter->setBrush(innerHighlight);
-                            painter->setPen(Qt::NoPen);
-                            painter->drawEllipse(highlightRectb);
-
-                        }
-                        if (isHovered()) {
-                            painter->setPen(pen);
-                            painter->setBrush(symbolColor);
-
-                            painter->drawLine( QPointF( 6, 6 ), QPointF( 12, 12 ) );
-                            painter->drawLine( QPointF( 6, 12 ), QPointF( 12, 6 ) );
-                        }
+                        painter->drawLine( QPointF( 6, 6 ), QPointF( 12, 12 ) );
+                        painter->drawLine( QPointF( 6, 12 ), QPointF( 12, 6 ) );
+                    }
                     break;
                 }
 
@@ -877,74 +824,21 @@ namespace Breeze
                         else
                             baseColor = inactiveCol;
 
-                        QRectF r(0,0, 17, 17);
 
-                        // button shadow
-                        if (!isHovered()) {
-                            painter->save();
-                            drawShadow(painter, Qt::black, 21,0);
-                            painter->restore();
-                        }
+                    // button shadow
+                    if (!isHovered()) {
+                        painter->save();
+                        drawShadow(painter, Qt::black, 21,0);
+                        painter->restore();
+                    }
 
-                        // --- Degradado principal (radial invertido) ---
-                        QRadialGradient base(r.center(), r.width()/2, QPointF(r.center().x(), r.bottom()));
-                        base.setColorAt(0.0, baseColor.lighter(110));   // parte baja brillante
-                        base.setColorAt(0.6, baseColor);
-                        base.setColorAt(1.0, baseColor.darker(110));    // borde oscuro
-                        painter->setBrush(base);
-                        painter->setPen(baseColor.darker(140));
-                        painter->drawEllipse(r);
+                    drawAquab(painter, baseColor, 17);
 
-                        // --- Highlight superior ovalado (reflejo Aqua) ---
-                        QRectF highlightRect(r.left()+4, r.top()+1, r.width()-8, r.height()/2.5);
-                        QLinearGradient gloss(highlightRect.topLeft(), highlightRect.bottomLeft());
-                        gloss.setColorAt(0.0, QColor(255,255,255,180));
-                        gloss.setColorAt(1.0, QColor(255,255,255,0));
-                        painter->setBrush(gloss);
-                        painter->setPen(Qt::NoPen);
-                        painter->drawEllipse(highlightRect);
+                    if (backgroundColor.isValid()) {
 
-                        // --- Bisel interior claro ---
-                        QRectF highlightRectb(r.left()+2, r.top()+r.height()/1.9, r.width()-4, r.height()/2.2);
-                        QRadialGradient innerHighlight(r.center(), r.width()/2, r.center());
-                        innerHighlight.setColorAt(0.0, QColor(255, 255, 255, 0));
-                        innerHighlight.setColorAt(1.0, QColor(255, 255, 255, 55));
-                        painter->setBrush(innerHighlight);
-                        painter->setPen(Qt::NoPen);
-                        painter->drawEllipse(highlightRectb);
+                        drawAquab(painter, baseColor, 18);
 
-                        if (backgroundColor.isValid())
-                        {
-
-                            QRectF r(0,0, 18, 18);
-
-                            // --- Degradado principal (radial invertido) ---
-                            QRadialGradient base(r.center(), r.width()/2, QPointF(r.center().x(), r.bottom()));
-                            base.setColorAt(0.0, baseColor.lighter(110));   // parte baja brillante
-                            base.setColorAt(0.6, baseColor);
-                            base.setColorAt(1.0, baseColor.darker(110));    // borde oscuro
-                            painter->setBrush(base);
-                            painter->setPen(baseColor.darker(140));
-                            painter->drawEllipse(r);
-
-                            // --- Highlight superior ovalado (reflejo Aqua) ---
-                            QRectF highlightRect(r.left()+4, r.top()+1, r.width()-8, r.height()/2.5);
-                            QLinearGradient gloss(highlightRect.topLeft(), highlightRect.bottomLeft());
-                            gloss.setColorAt(0.0, QColor(255,255,255,180));
-                            gloss.setColorAt(1.0, QColor(255,255,255,0));
-                            painter->setBrush(gloss);
-                            painter->setPen(Qt::NoPen);
-                            painter->drawEllipse(highlightRect);
-
-                            // --- Bisel interior claro ---
-                            QRectF highlightRectb(r.left()+2, r.top()+r.height()/1.9, r.width()-4, r.height()/2.2);
-                            QRadialGradient innerHighlight(r.center(), r.width()/2, r.center());
-                            innerHighlight.setColorAt(0.0, QColor(255, 255, 255, 0));
-                            innerHighlight.setColorAt(1.0, QColor(255, 255, 255, 55));
-                            painter->setBrush(innerHighlight);
-                            painter->setPen(Qt::NoPen);
-                            painter->drawEllipse(highlightRectb);
-                        }
+                    }
                         if (isHovered()) {
                             painter->setPen( Qt::NoPen );
 
@@ -986,74 +880,21 @@ namespace Breeze
                         else
                             baseColor = inactiveCol;
 
-                        QRectF r(0,0, 17, 17);
 
-                        // button shadow
-                        if (!isHovered()) {
-                            painter->save();
-                            drawShadow(painter, Qt::black, 21,0);
-                            painter->restore();
-                        }
+                    // button shadow
+                    if (!isHovered()) {
+                        painter->save();
+                        drawShadow(painter, Qt::black, 21,0);
+                        painter->restore();
+                    }
 
-                        // --- Degradado principal (radial invertido) ---
-                        QRadialGradient base(r.center(), r.width()/2, QPointF(r.center().x(), r.bottom()));
-                        base.setColorAt(0.0, baseColor.lighter(110));   // parte baja brillante
-                        base.setColorAt(0.6, baseColor);
-                        base.setColorAt(1.0, baseColor.darker(110));    // borde oscuro
-                        painter->setBrush(base);
-                        painter->setPen(baseColor.darker(140));
-                        painter->drawEllipse(r);
+                    drawAquab(painter, baseColor, 17);
 
-                        // --- Highlight superior ovalado (reflejo Aqua) ---
-                        QRectF highlightRect(r.left()+4, r.top()+1, r.width()-8, r.height()/2.5);
-                        QLinearGradient gloss(highlightRect.topLeft(), highlightRect.bottomLeft());
-                        gloss.setColorAt(0.0, QColor(255,255,255,180));
-                        gloss.setColorAt(1.0, QColor(255,255,255,0));
-                        painter->setBrush(gloss);
-                        painter->setPen(Qt::NoPen);
-                        painter->drawEllipse(highlightRect);
+                    if (backgroundColor.isValid()) {
 
-                        // --- Bisel interior claro ---
-                        QRectF highlightRectb(r.left()+2, r.top()+r.height()/1.9, r.width()-4, r.height()/2.2);
-                        QRadialGradient innerHighlight(r.center(), r.width()/2, r.center());
-                        innerHighlight.setColorAt(0.0, QColor(255, 255, 255, 0));
-                        innerHighlight.setColorAt(1.0, QColor(255, 255, 255, 55));
-                        painter->setBrush(innerHighlight);
-                        painter->setPen(Qt::NoPen);
-                        painter->drawEllipse(highlightRectb);
+                        drawAquab(painter, baseColor, 18);
 
-                        if (backgroundColor.isValid())
-                        {
-
-                            QRectF r(0,0, 18, 18);
-
-                            // --- Degradado principal (radial invertido) ---
-                            QRadialGradient base(r.center(), r.width()/2, QPointF(r.center().x(), r.bottom()));
-                            base.setColorAt(0.0, baseColor.lighter(110));   // parte baja brillante
-                            base.setColorAt(0.6, baseColor);
-                            base.setColorAt(1.0, baseColor.darker(110));    // borde oscuro
-                            painter->setBrush(base);
-                            painter->setPen(baseColor.darker(140));
-                            painter->drawEllipse(r);
-
-                            // --- Highlight superior ovalado (reflejo Aqua) ---
-                            QRectF highlightRect(r.left()+4, r.top()+1, r.width()-8, r.height()/2.5);
-                            QLinearGradient gloss(highlightRect.topLeft(), highlightRect.bottomLeft());
-                            gloss.setColorAt(0.0, QColor(255,255,255,180));
-                            gloss.setColorAt(1.0, QColor(255,255,255,0));
-                            painter->setBrush(gloss);
-                            painter->setPen(Qt::NoPen);
-                            painter->drawEllipse(highlightRect);
-
-                            // --- Bisel interior claro ---
-                            QRectF highlightRectb(r.left()+2, r.top()+r.height()/1.9, r.width()-4, r.height()/2.2);
-                            QRadialGradient innerHighlight(r.center(), r.width()/2, r.center());
-                            innerHighlight.setColorAt(0.0, QColor(255, 255, 255, 0));
-                            innerHighlight.setColorAt(1.0, QColor(255, 255, 255, 55));
-                            painter->setBrush(innerHighlight);
-                            painter->setPen(Qt::NoPen);
-                            painter->drawEllipse(highlightRectb);
-                        }
+                    }
                         if (isHovered()) {
                             pen.setWidthF(1.2*qMax((qreal)1.0, 20/width));
                             painter->setPen(pen);
@@ -1072,7 +913,6 @@ namespace Breeze
                     else
                         baseColor = inactiveCol;
 
-                    QRectF r(0,0, 17, 17);
 
                     // button shadow
                     if (!isHovered()) {
@@ -1081,71 +921,14 @@ namespace Breeze
                         painter->restore();
                     }
 
-                    // --- Degradado principal (radial invertido) ---
-                    QRadialGradient base(r.center(), r.width()/2, QPointF(r.center().x(), r.bottom()));
-                    base.setColorAt(0.0, baseColor.lighter(110));   // parte baja brillante
-                    base.setColorAt(0.6, baseColor);
-                    base.setColorAt(1.0, baseColor.darker(110));    // borde oscuro
-                    painter->setBrush(base);
-                    painter->setPen(baseColor.darker(140));
-                    painter->drawEllipse(r);
+                    drawAquab(painter, baseColor, 17);
 
-                    // --- Highlight superior ovalado (reflejo Aqua) ---
-                    QRectF highlightRect(r.left()+4, r.top()+1, r.width()-8, r.height()/2.5);
-                    QLinearGradient gloss(highlightRect.topLeft(), highlightRect.bottomLeft());
-                    gloss.setColorAt(0.0, QColor(255,255,255,180));
-                    gloss.setColorAt(1.0, QColor(255,255,255,0));
-                    painter->setBrush(gloss);
-                    painter->setPen(Qt::NoPen);
-                    painter->drawEllipse(highlightRect);
+                    if (backgroundColor.isValid()) {
 
-                    // --- Bisel interior claro ---
-                    QRectF highlightRectb(r.left()+2, r.top()+r.height()/1.9, r.width()-4, r.height()/2.2);
-                    QRadialGradient innerHighlight(r.center(), r.width()/2, r.center());
-                    innerHighlight.setColorAt(0.0, QColor(255, 255, 255, 0));
-                    innerHighlight.setColorAt(1.0, QColor(255, 255, 255, 55));
-                    painter->setBrush(innerHighlight);
-                    painter->setPen(Qt::NoPen);
-                    painter->drawEllipse(highlightRectb);
-                    //  painter->drawEllipse(QRectF(1, 1, 16, 16));
-                    if (backgroundColor.isValid())
-                    {
-                        QRectF r(0,0, 18, 18);
+                        drawAquab(painter, baseColor, 18);
 
-                        // --- Degradado principal (radial invertido) ---
-                        QRadialGradient base(r.center(), r.width()/2, QPointF(r.center().x(), r.bottom()));
-                        base.setColorAt(0.0, baseColor.lighter(110));   // parte baja brillante
-                        base.setColorAt(0.6, baseColor);
-                        base.setColorAt(1.0, baseColor.darker(110));    // borde oscuro
-                        painter->setBrush(base);
-                        painter->setPen(baseColor.darker(140));
-                        painter->drawEllipse(r);
-
-                        // --- Highlight superior ovalado (reflejo Aqua) ---
-                        QRectF highlightRect(r.left()+4, r.top()+1, r.width()-8, r.height()/2.5);
-                        QLinearGradient gloss(highlightRect.topLeft(), highlightRect.bottomLeft());
-                        gloss.setColorAt(0.0, QColor(255,255,255,180));
-                        gloss.setColorAt(1.0, QColor(255,255,255,0));
-                        painter->setBrush(gloss);
-                        painter->setPen(Qt::NoPen);
-                        painter->drawEllipse(highlightRect);
-
-                        // --- Bisel interior claro ---
-                        QRectF highlightRectb(r.left()+2, r.top()+r.height()/1.9, r.width()-4, r.height()/2.2);
-                        QRadialGradient innerHighlight(r.center(), r.width()/2, r.center());
-                        innerHighlight.setColorAt(0.0, QColor(255, 255, 255, 0));
-                        innerHighlight.setColorAt(1.0, QColor(255, 255, 255, 55));
-                        painter->setBrush(innerHighlight);
-                        painter->setPen(Qt::NoPen);
-                        painter->drawEllipse(highlightRectb);
                     }
                     if (isPressed() || isHovered() || isChecked()) {
-                        /*         if ((isPressed()) && backgroundColor.isValid())
-                         { * * *
-                         painter->setPen(Qt::NoPen);
-                         painter->setBrush(backgroundColor);
-                         painter->drawEllipse(QRectF(0, 0, 18, 18));
-                    } */
                         painter->setPen(pen);
                         painter->setBrush(Qt::NoBrush);
                         painter->drawEllipse(QRectF(6, 6, 6, 6));
@@ -1162,7 +945,6 @@ namespace Breeze
                     else
                         baseColor = inactiveCol;
 
-                    QRectF r(0,0, 17, 17);
 
                     // button shadow
                     if (!isHovered()) {
@@ -1171,71 +953,14 @@ namespace Breeze
                         painter->restore();
                     }
 
-                    // --- Degradado principal (radial invertido) ---
-                    QRadialGradient base(r.center(), r.width()/2, QPointF(r.center().x(), r.bottom()));
-                    base.setColorAt(0.0, baseColor.lighter(110));   // parte baja brillante
-                    base.setColorAt(0.6, baseColor);
-                    base.setColorAt(1.0, baseColor.darker(110));    // borde oscuro
-                    painter->setBrush(base);
-                    painter->setPen(baseColor.darker(140));
-                    painter->drawEllipse(r);
+                    drawAquab(painter, baseColor, 17);
 
-                    // --- Highlight superior ovalado (reflejo Aqua) ---
-                    QRectF highlightRect(r.left()+4, r.top()+1, r.width()-8, r.height()/2.5);
-                    QLinearGradient gloss(highlightRect.topLeft(), highlightRect.bottomLeft());
-                    gloss.setColorAt(0.0, QColor(255,255,255,180));
-                    gloss.setColorAt(1.0, QColor(255,255,255,0));
-                    painter->setBrush(gloss);
-                    painter->setPen(Qt::NoPen);
-                    painter->drawEllipse(highlightRect);
+                    if (backgroundColor.isValid()) {
 
-                    // --- Bisel interior claro ---
-                    QRectF highlightRectb(r.left()+2, r.top()+r.height()/1.9, r.width()-4, r.height()/2.2);
-                    QRadialGradient innerHighlight(r.center(), r.width()/2, r.center());
-                    innerHighlight.setColorAt(0.0, QColor(255, 255, 255, 0));
-                    innerHighlight.setColorAt(1.0, QColor(255, 255, 255, 55));
-                    painter->setBrush(innerHighlight);
-                    painter->setPen(Qt::NoPen);
-                    painter->drawEllipse(highlightRectb);
-                    //  painter->drawEllipse(QRectF(1, 1, 16, 16));
-                    if (backgroundColor.isValid())
-                    {
-                        QRectF r(0,0, 18, 18);
+                        drawAquab(painter, baseColor, 18);
 
-                        // --- Degradado principal (radial invertido) ---
-                        QRadialGradient base(r.center(), r.width()/2, QPointF(r.center().x(), r.bottom()));
-                        base.setColorAt(0.0, baseColor.lighter(110));   // parte baja brillante
-                        base.setColorAt(0.6, baseColor);
-                        base.setColorAt(1.0, baseColor.darker(110));    // borde oscuro
-                        painter->setBrush(base);
-                        painter->setPen(baseColor.darker(140));
-                        painter->drawEllipse(r);
-
-                        // --- Highlight superior ovalado (reflejo Aqua) ---
-                        QRectF highlightRect(r.left()+4, r.top()+1, r.width()-8, r.height()/2.5);
-                        QLinearGradient gloss(highlightRect.topLeft(), highlightRect.bottomLeft());
-                        gloss.setColorAt(0.0, QColor(255,255,255,180));
-                        gloss.setColorAt(1.0, QColor(255,255,255,0));
-                        painter->setBrush(gloss);
-                        painter->setPen(Qt::NoPen);
-                        painter->drawEllipse(highlightRect);
-
-                        // --- Bisel interior claro ---
-                        QRectF highlightRectb(r.left()+2, r.top()+r.height()/1.9, r.width()-4, r.height()/2.2);
-                        QRadialGradient innerHighlight(r.center(), r.width()/2, r.center());
-                        innerHighlight.setColorAt(0.0, QColor(255, 255, 255, 0));
-                        innerHighlight.setColorAt(1.0, QColor(255, 255, 255, 55));
-                        painter->setBrush(innerHighlight);
-                        painter->setPen(Qt::NoPen);
-                        painter->drawEllipse(highlightRectb);
                     }
                     if (isPressed() || isHovered() || isChecked()) {
-                        /*         if ((isPressed()) && backgroundColor.isValid())
-                         { * *
-                         painter->setPen(Qt::NoPen);
-                         painter->setBrush(backgroundColor);
-                         painter->drawEllipse(QRectF(0, 0, 18, 18));
-                    } */
                         painter->setPen(pen);
                         painter->setBrush(Qt::NoBrush);
                         painter->drawPolyline(QPolygonF()
@@ -1256,7 +981,6 @@ namespace Breeze
                     else
                         baseColor = inactiveCol;
 
-                    QRectF r(0,0, 17, 17);
 
                     // button shadow
                     if (!isHovered()) {
@@ -1265,71 +989,14 @@ namespace Breeze
                         painter->restore();
                     }
 
-                    // --- Degradado principal (radial invertido) ---
-                    QRadialGradient base(r.center(), r.width()/2, QPointF(r.center().x(), r.bottom()));
-                    base.setColorAt(0.0, baseColor.lighter(110));   // parte baja brillante
-                    base.setColorAt(0.6, baseColor);
-                    base.setColorAt(1.0, baseColor.darker(110));    // borde oscuro
-                    painter->setBrush(base);
-                    painter->setPen(baseColor.darker(140));
-                    painter->drawEllipse(r);
+                    drawAquab(painter, baseColor, 17);
 
-                    // --- Highlight superior ovalado (reflejo Aqua) ---
-                    QRectF highlightRect(r.left()+4, r.top()+1, r.width()-8, r.height()/2.5);
-                    QLinearGradient gloss(highlightRect.topLeft(), highlightRect.bottomLeft());
-                    gloss.setColorAt(0.0, QColor(255,255,255,180));
-                    gloss.setColorAt(1.0, QColor(255,255,255,0));
-                    painter->setBrush(gloss);
-                    painter->setPen(Qt::NoPen);
-                    painter->drawEllipse(highlightRect);
+                    if (backgroundColor.isValid()) {
 
-                    // --- Bisel interior claro ---
-                    QRectF highlightRectb(r.left()+2, r.top()+r.height()/1.9, r.width()-4, r.height()/2.2);
-                    QRadialGradient innerHighlight(r.center(), r.width()/2, r.center());
-                    innerHighlight.setColorAt(0.0, QColor(255, 255, 255, 0));
-                    innerHighlight.setColorAt(1.0, QColor(255, 255, 255, 55));
-                    painter->setBrush(innerHighlight);
-                    painter->setPen(Qt::NoPen);
-                    painter->drawEllipse(highlightRectb);
-                    //  painter->drawEllipse(QRectF(1, 1, 16, 16));
-                    if (backgroundColor.isValid())
-                    {
-                        QRectF r(0,0, 18, 18);
+                        drawAquab(painter, baseColor, 18);
 
-                        // --- Degradado principal (radial invertido) ---
-                        QRadialGradient base(r.center(), r.width()/2, QPointF(r.center().x(), r.bottom()));
-                        base.setColorAt(0.0, baseColor.lighter(110));   // parte baja brillante
-                        base.setColorAt(0.6, baseColor);
-                        base.setColorAt(1.0, baseColor.darker(110));    // borde oscuro
-                        painter->setBrush(base);
-                        painter->setPen(baseColor.darker(140));
-                        painter->drawEllipse(r);
-
-                        // --- Highlight superior ovalado (reflejo Aqua) ---
-                        QRectF highlightRect(r.left()+4, r.top()+1, r.width()-8, r.height()/2.5);
-                        QLinearGradient gloss(highlightRect.topLeft(), highlightRect.bottomLeft());
-                        gloss.setColorAt(0.0, QColor(255,255,255,180));
-                        gloss.setColorAt(1.0, QColor(255,255,255,0));
-                        painter->setBrush(gloss);
-                        painter->setPen(Qt::NoPen);
-                        painter->drawEllipse(highlightRect);
-
-                        // --- Bisel interior claro ---
-                        QRectF highlightRectb(r.left()+2, r.top()+r.height()/1.9, r.width()-4, r.height()/2.2);
-                        QRadialGradient innerHighlight(r.center(), r.width()/2, r.center());
-                        innerHighlight.setColorAt(0.0, QColor(255, 255, 255, 0));
-                        innerHighlight.setColorAt(1.0, QColor(255, 255, 255, 55));
-                        painter->setBrush(innerHighlight);
-                        painter->setPen(Qt::NoPen);
-                        painter->drawEllipse(highlightRectb);
                     }
                     if (isPressed() || isHovered() || isChecked()) {
-                        /*         if ((isPressed()) && backgroundColor.isValid())
-                         { *
-                         painter->setPen(Qt::NoPen);
-                         painter->setBrush(backgroundColor);
-                         painter->drawEllipse(QRectF(0, 0, 18, 18));
-                    } */
                         painter->setPen(pen);
                         painter->setBrush(Qt::NoBrush);
                         painter->drawPolyline(QPolygonF()
@@ -1355,80 +1022,22 @@ namespace Breeze
                         else
                             baseColor = inactiveCol;
 
-                        QRectF r(0,0, 17, 17);
 
-                        // button shadow
-                        if (!isHovered()) {
-                            painter->save();
-                            drawShadow(painter, Qt::black, 21,0);
-                            painter->restore();
-                        }
+                    // button shadow
+                    if (!isHovered()) {
+                        painter->save();
+                        drawShadow(painter, Qt::black, 21,0);
+                        painter->restore();
+                    }
 
-                        // --- Degradado principal (radial invertido) ---
-                        QRadialGradient base(r.center(), r.width()/2, QPointF(r.center().x(), r.bottom()));
-                        base.setColorAt(0.0, baseColor.lighter(110));   // parte baja brillante
-                        base.setColorAt(0.6, baseColor);
-                        base.setColorAt(1.0, baseColor.darker(110));    // borde oscuro
-                        painter->setBrush(base);
-                        painter->setPen(baseColor.darker(140));
-                        painter->drawEllipse(r);
+                    drawAquab(painter, baseColor, 17);
 
-                        // --- Highlight superior ovalado (reflejo Aqua) ---
-                        QRectF highlightRect(r.left()+4, r.top()+1, r.width()-8, r.height()/2.5);
-                        QLinearGradient gloss(highlightRect.topLeft(), highlightRect.bottomLeft());
-                        gloss.setColorAt(0.0, QColor(255,255,255,180));
-                        gloss.setColorAt(1.0, QColor(255,255,255,0));
-                        painter->setBrush(gloss);
-                        painter->setPen(Qt::NoPen);
-                        painter->drawEllipse(highlightRect);
+                    if (backgroundColor.isValid()) {
 
-                        // --- Bisel interior claro ---
-                        QRectF highlightRectb(r.left()+2, r.top()+r.height()/1.9, r.width()-4, r.height()/2.2);
-                        QRadialGradient innerHighlight(r.center(), r.width()/2, r.center());
-                        innerHighlight.setColorAt(0.0, QColor(255, 255, 255, 0));
-                        innerHighlight.setColorAt(1.0, QColor(255, 255, 255, 55));
-                        painter->setBrush(innerHighlight);
-                        painter->setPen(Qt::NoPen);
-                        painter->drawEllipse(highlightRectb);
-                          //  painter->drawEllipse(QRectF(1, 1, 16, 16));
-                            if (backgroundColor.isValid())
-                            {
-                                QRectF r(0,0, 18, 18);
+                        drawAquab(painter, baseColor, 18);
 
-                                // --- Degradado principal (radial invertido) ---
-                                QRadialGradient base(r.center(), r.width()/2, QPointF(r.center().x(), r.bottom()));
-                                base.setColorAt(0.0, baseColor.lighter(110));   // parte baja brillante
-                                base.setColorAt(0.6, baseColor);
-                                base.setColorAt(1.0, baseColor.darker(110));    // borde oscuro
-                                painter->setBrush(base);
-                                painter->setPen(baseColor.darker(140));
-                                painter->drawEllipse(r);
-
-                                // --- Highlight superior ovalado (reflejo Aqua) ---
-                                QRectF highlightRect(r.left()+4, r.top()+1, r.width()-8, r.height()/2.5);
-                                QLinearGradient gloss(highlightRect.topLeft(), highlightRect.bottomLeft());
-                                gloss.setColorAt(0.0, QColor(255,255,255,180));
-                                gloss.setColorAt(1.0, QColor(255,255,255,0));
-                                painter->setBrush(gloss);
-                                painter->setPen(Qt::NoPen);
-                                painter->drawEllipse(highlightRect);
-
-                                // --- Bisel interior claro ---
-                                QRectF highlightRectb(r.left()+2, r.top()+r.height()/1.9, r.width()-4, r.height()/2.2);
-                                QRadialGradient innerHighlight(r.center(), r.width()/2, r.center());
-                                innerHighlight.setColorAt(0.0, QColor(255, 255, 255, 0));
-                                innerHighlight.setColorAt(1.0, QColor(255, 255, 255, 55));
-                                painter->setBrush(innerHighlight);
-                                painter->setPen(Qt::NoPen);
-                                painter->drawEllipse(highlightRectb);
-                            }
+                    }
                     if (isPressed() || isHovered() || isChecked()) {
-               /*         if ((isPressed()) && backgroundColor.isValid())
-                        {
-                            painter->setPen(Qt::NoPen);
-                            painter->setBrush(backgroundColor);
-                            painter->drawEllipse(QRectF(0, 0, 18, 18));
-                        } */
                         painter->setPen(pen);
                         painter->setBrush(Qt::NoBrush);
                         painter->drawPolyline(QPolygonF()
@@ -1454,7 +1063,6 @@ namespace Breeze
                     else
                         baseColor = inactiveCol;
 
-                    QRectF r(0,0, 17, 17);
 
                     // button shadow
                     if (!isHovered()) {
@@ -1463,71 +1071,14 @@ namespace Breeze
                         painter->restore();
                     }
 
-                    // --- Degradado principal (radial invertido) ---
-                    QRadialGradient base(r.center(), r.width()/2, QPointF(r.center().x(), r.bottom()));
-                    base.setColorAt(0.0, baseColor.lighter(110));   // parte baja brillante
-                    base.setColorAt(0.6, baseColor);
-                    base.setColorAt(1.0, baseColor.darker(110));    // borde oscuro
-                    painter->setBrush(base);
-                    painter->setPen(baseColor.darker(140));
-                    painter->drawEllipse(r);
+                    drawAquab(painter, baseColor, 17);
 
-                    // --- Highlight superior ovalado (reflejo Aqua) ---
-                    QRectF highlightRect(r.left()+4, r.top()+1, r.width()-8, r.height()/2.5);
-                    QLinearGradient gloss(highlightRect.topLeft(), highlightRect.bottomLeft());
-                    gloss.setColorAt(0.0, QColor(255,255,255,180));
-                    gloss.setColorAt(1.0, QColor(255,255,255,0));
-                    painter->setBrush(gloss);
-                    painter->setPen(Qt::NoPen);
-                    painter->drawEllipse(highlightRect);
+                    if (backgroundColor.isValid()) {
 
-                    // --- Bisel interior claro ---
-                    QRectF highlightRectb(r.left()+2, r.top()+r.height()/1.9, r.width()-4, r.height()/2.2);
-                    QRadialGradient innerHighlight(r.center(), r.width()/2, r.center());
-                    innerHighlight.setColorAt(0.0, QColor(255, 255, 255, 0));
-                    innerHighlight.setColorAt(1.0, QColor(255, 255, 255, 55));
-                    painter->setBrush(innerHighlight);
-                    painter->setPen(Qt::NoPen);
-                    painter->drawEllipse(highlightRectb);
-                    //  painter->drawEllipse(QRectF(1, 1, 16, 16));
-                    if (backgroundColor.isValid())
-                    {
-                        QRectF r(0,0, 18, 18);
+                        drawAquab(painter, baseColor, 18);
 
-                        // --- Degradado principal (radial invertido) ---
-                        QRadialGradient base(r.center(), r.width()/2, QPointF(r.center().x(), r.bottom()));
-                        base.setColorAt(0.0, baseColor.lighter(110));   // parte baja brillante
-                        base.setColorAt(0.6, baseColor);
-                        base.setColorAt(1.0, baseColor.darker(110));    // borde oscuro
-                        painter->setBrush(base);
-                        painter->setPen(baseColor.darker(140));
-                        painter->drawEllipse(r);
-
-                        // --- Highlight superior ovalado (reflejo Aqua) ---
-                        QRectF highlightRect(r.left()+4, r.top()+1, r.width()-8, r.height()/2.5);
-                        QLinearGradient gloss(highlightRect.topLeft(), highlightRect.bottomLeft());
-                        gloss.setColorAt(0.0, QColor(255,255,255,180));
-                        gloss.setColorAt(1.0, QColor(255,255,255,0));
-                        painter->setBrush(gloss);
-                        painter->setPen(Qt::NoPen);
-                        painter->drawEllipse(highlightRect);
-
-                        // --- Bisel interior claro ---
-                        QRectF highlightRectb(r.left()+2, r.top()+r.height()/1.9, r.width()-4, r.height()/2.2);
-                        QRadialGradient innerHighlight(r.center(), r.width()/2, r.center());
-                        innerHighlight.setColorAt(0.0, QColor(255, 255, 255, 0));
-                        innerHighlight.setColorAt(1.0, QColor(255, 255, 255, 55));
-                        painter->setBrush(innerHighlight);
-                        painter->setPen(Qt::NoPen);
-                        painter->drawEllipse(highlightRectb);
                     }
                     if (isPressed() || isHovered()) {
-                        /*         if ((isPressed()) && backgroundColor.isValid())
-                         { *
-                         painter->setPen(Qt::NoPen);
-                         painter->setBrush(backgroundColor);
-                         painter->drawEllipse(QRectF(0, 0, 18, 18));
-                    } */
                         painter->setPen(pen);
                         painter->setBrush(Qt::NoBrush);
                         painter->drawLine(QPointF(4.5, 6), QPointF(13.5, 6));
@@ -1546,7 +1097,6 @@ namespace Breeze
                     else
                         baseColor = inactiveCol;
 
-                    QRectF r(0,0, 17, 17);
 
                     // button shadow
                     if (!isHovered()) {
@@ -1555,71 +1105,371 @@ namespace Breeze
                         painter->restore();
                     }
 
-                    // --- Degradado principal (radial invertido) ---
-                    QRadialGradient base(r.center(), r.width()/2, QPointF(r.center().x(), r.bottom()));
-                    base.setColorAt(0.0, baseColor.lighter(110));   // parte baja brillante
-                    base.setColorAt(0.6, baseColor);
-                    base.setColorAt(1.0, baseColor.darker(110));    // borde oscuro
-                    painter->setBrush(base);
-                    painter->setPen(baseColor.darker(140));
-                    painter->drawEllipse(r);
+                    drawAquab(painter, baseColor, 17);
 
-                    // --- Highlight superior ovalado (reflejo Aqua) ---
-                    QRectF highlightRect(r.left()+4, r.top()+1, r.width()-8, r.height()/2.5);
-                    QLinearGradient gloss(highlightRect.topLeft(), highlightRect.bottomLeft());
-                    gloss.setColorAt(0.0, QColor(255,255,255,180));
-                    gloss.setColorAt(1.0, QColor(255,255,255,0));
-                    painter->setBrush(gloss);
-                    painter->setPen(Qt::NoPen);
-                    painter->drawEllipse(highlightRect);
+                    if (backgroundColor.isValid()) {
 
-                    // --- Bisel interior claro ---
-                    QRectF highlightRectb(r.left()+2, r.top()+r.height()/1.9, r.width()-4, r.height()/2.2);
-                    QRadialGradient innerHighlight(r.center(), r.width()/2, r.center());
-                    innerHighlight.setColorAt(0.0, QColor(255, 255, 255, 0));
-                    innerHighlight.setColorAt(1.0, QColor(255, 255, 255, 55));
-                    painter->setBrush(innerHighlight);
-                    painter->setPen(Qt::NoPen);
-                    painter->drawEllipse(highlightRectb);
-                    //  painter->drawEllipse(QRectF(1, 1, 16, 16));
-                    if (backgroundColor.isValid())
-                    {
-                        QRectF r(0,0, 18, 18);
+                        drawAquab(painter, baseColor, 18);
 
-                        // --- Degradado principal (radial invertido) ---
-                        QRadialGradient base(r.center(), r.width()/2, QPointF(r.center().x(), r.bottom()));
-                        base.setColorAt(0.0, baseColor.lighter(110));   // parte baja brillante
-                        base.setColorAt(0.6, baseColor);
-                        base.setColorAt(1.0, baseColor.darker(110));    // borde oscuro
-                        painter->setBrush(base);
-                        painter->setPen(baseColor.darker(140));
-                        painter->drawEllipse(r);
-
-                        // --- Highlight superior ovalado (reflejo Aqua) ---
-                        QRectF highlightRect(r.left()+4, r.top()+1, r.width()-8, r.height()/2.5);
-                        QLinearGradient gloss(highlightRect.topLeft(), highlightRect.bottomLeft());
-                        gloss.setColorAt(0.0, QColor(255,255,255,180));
-                        gloss.setColorAt(1.0, QColor(255,255,255,0));
-                        painter->setBrush(gloss);
-                        painter->setPen(Qt::NoPen);
-                        painter->drawEllipse(highlightRect);
-
-                        // --- Bisel interior claro ---
-                        QRectF highlightRectb(r.left()+2, r.top()+r.height()/1.9, r.width()-4, r.height()/2.2);
-                        QRadialGradient innerHighlight(r.center(), r.width()/2, r.center());
-                        innerHighlight.setColorAt(0.0, QColor(255, 255, 255, 0));
-                        innerHighlight.setColorAt(1.0, QColor(255, 255, 255, 55));
-                        painter->setBrush(innerHighlight);
-                        painter->setPen(Qt::NoPen);
-                        painter->drawEllipse(highlightRectb);
                     }
                     if (isPressed() || isHovered()) {
-                        /*         if ((isPressed()) && backgroundColor.isValid())
-                         { * *
-                         painter->setPen(Qt::NoPen);
-                         painter->setBrush(backgroundColor);
-                         painter->drawEllipse(QRectF(0, 0, 18, 18));
-                    } */
+                        painter->setPen(pen);
+                        painter->setBrush(Qt::NoBrush);
+
+                        QPainterPath path;
+                        path.moveTo(5, 6);
+                        path.arcTo(QRectF(5, 3.5, 8, 5), 180, -180);
+                        path.cubicTo(QPointF(12.5, 9.5), QPointF(9, 7.5), QPointF(9, 11.5));
+                        painter->drawPath(path);
+
+                        painter->drawPoint(9, 15);
+                    }
+                    break;
+                }
+
+                default: break;
+
+            }
+
+        }
+
+    }
+
+
+    //__________________________________________________________________
+    void Button::drawIconDrop( QPainter *painter ) const
+    {
+        painter->setRenderHints(QPainter::Antialiasing);
+
+        /*
+         *   scale painter so that its window matches QRect(-1, -1, 20, 20)
+         *   this makes all further rendering and scaling simpler
+         *   all further rendering is performed inside QRect(0, 0, 18, 18)
+         */
+        const QRectF rect = geometry().marginsRemoved(m_padding);
+        painter->translate(rect.topLeft());
+
+        const qreal width(rect.width());
+        painter->scale(width/20, width/20);
+        painter->translate(1, 1);
+
+        // render background
+        const QColor backgroundColor(this->backgroundColor());
+
+        auto d = qobject_cast<Decoration*>(decoration());
+        bool isInactive(d && !d->window()->isActive()
+        && !isHovered() && !isPressed()
+        && m_animation->state() != QAbstractAnimation::Running);
+        QColor inactiveCol(Qt::gray);
+        if (isInactive)
+        {
+            int gray = qGray(d->titleBarColor().rgb());
+            if (gray <= 200) {
+                gray += 55;
+                gray = qMax(gray, 115);
+            }
+            else gray -= 45;
+            inactiveCol = QColor(gray, gray, gray);
+        }
+
+        QColor symbolColor;
+        symbolColor = QColor(34, 45, 50);
+        // render mark
+        const QColor foregroundColor(this->foregroundColor(inactiveCol));
+        if (foregroundColor.isValid())
+        {
+            // setup painter
+            QPen pen(symbolColor);
+            pen.setWidthF(qMax(1.8 * 21 / width, pen.widthF()));
+
+            switch (type())
+            {
+
+                case DecorationButtonType::Close:
+                {
+
+                    QColor baseColor;
+                    QColor baseColor1;
+                    baseColor = QColor(242, 242, 242);
+                    baseColor1 = QColor(255, 235, 235);
+
+                    // button shadow
+                    if (!isHovered()) {
+                        painter->save();
+                        drawShadow(painter, Qt::black, 20,0);
+                        painter->restore();
+                    }
+
+                    drawAquab(painter, baseColor, 17);
+
+                    if (backgroundColor.isValid())
+                    {
+                        drawAquab(painter, baseColor1, 18);
+                    }
+                    if (isHovered()) {
+                        painter->setPen(pen);
+                        painter->setBrush(symbolColor);
+
+                        painter->drawLine( QPointF( 6, 6 ), QPointF( 12, 12 ) );
+                        painter->drawLine( QPointF( 6, 12 ), QPointF( 12, 6 ) );
+                    }
+                    break;
+                }
+
+                case DecorationButtonType::Maximize:
+                {
+                    QColor baseColor;
+                    QColor baseColor1;
+                    baseColor = QColor(242, 242, 242);
+                    baseColor1 = QColor(242, 255, 242);
+
+                    // button shadow
+                    if (!isHovered()) {
+                        painter->save();
+                        drawShadow(painter, Qt::black, 20,0);
+                        painter->restore();
+                    }
+
+                    drawAquab(painter, baseColor, 17);
+
+                    if (backgroundColor.isValid())
+                    {
+                        drawAquab(painter, baseColor1, 18);
+                    }
+                    if (isHovered()) {
+                        painter->setPen( Qt::NoPen );
+
+                        // two triangles
+                        QPainterPath path1, path2;
+                        if( isChecked() )
+                        {
+                            path1.moveTo(8.5, 9.5);
+                            path1.lineTo(2.5, 9.5);
+                            path1.lineTo(8.5, 15.5);
+
+                            path2.moveTo(9.5, 8.5);
+                            path2.lineTo(15.5, 8.5);
+                            path2.lineTo(9.5, 2.5);
+                        }
+                        else
+                        {
+                            path1.moveTo(5, 13);
+                            path1.lineTo(11, 13);
+                            path1.lineTo(5, 7);
+
+                            path2.moveTo(13, 5);
+                            path2.lineTo(7, 5);
+                            path2.lineTo(13, 11);
+                        }
+
+                        painter->fillPath(path1, QBrush(symbolColor));
+                        painter->fillPath(path2, QBrush(symbolColor));
+                    }
+                    break;
+                }
+
+                case DecorationButtonType::Minimize:
+                {
+                    QColor baseColor;
+                    QColor baseColor1;
+                    baseColor = QColor(242, 242, 242);
+                    baseColor1 = QColor(255, 247, 228);
+
+                    // button shadow
+                    if (!isHovered()) {
+                        painter->save();
+                        drawShadow(painter, Qt::black, 20,0);
+                        painter->restore();
+                    }
+
+                    drawAquab(painter, baseColor, 17);
+
+                    if (backgroundColor.isValid())
+                    {
+                        drawAquab(painter, baseColor1, 18);
+                    }
+                    if (isHovered()) {
+                        pen.setWidthF(1.2*qMax((qreal)1.0, 20/width));
+                        painter->setPen(pen);
+                        painter->setBrush(symbolColor);
+                        painter->drawLine( QPointF( 5, 9 ), QPointF( 13, 9 ) );
+                    }
+                    break;
+                }
+
+                case DecorationButtonType::OnAllDesktops:
+                {
+                    QColor baseColor;
+                    baseColor = QColor(242, 242, 242);
+
+                    // button shadow
+                    if (!isHovered()) {
+                        painter->save();
+                        drawShadow(painter, Qt::black, 20,0);
+                        painter->restore();
+                    }
+
+                    drawAquab(painter, baseColor, 17);
+
+                    if (backgroundColor.isValid())
+                    {
+                        drawAquab(painter, baseColor, 18);
+                    }
+                    if (isPressed() || isHovered() || isChecked()) {
+                        painter->setPen(pen);
+                        painter->setBrush(Qt::NoBrush);
+                        painter->drawEllipse(QRectF(6, 6, 6, 6));
+                    }
+                    break;
+                }
+
+                case DecorationButtonType::Shade:
+                {
+                    QColor baseColor;
+                    baseColor = QColor(242, 242, 242);
+
+                    // button shadow
+                    if (!isHovered()) {
+                        painter->save();
+                        drawShadow(painter, Qt::black, 20,0);
+                        painter->restore();
+                    }
+
+                    drawAquab(painter, baseColor, 17);
+
+                    if (backgroundColor.isValid())
+                    {
+                        drawAquab(painter, baseColor, 18);
+                    }
+                    if (isPressed() || isHovered() || isChecked()) {
+                        painter->setPen(pen);
+                        painter->setBrush(Qt::NoBrush);
+                        painter->drawPolyline(QPolygonF()
+                        << QPointF(5, 13)
+                        << QPointF(9, 9)
+                        << QPointF(13, 13));
+                    }
+                    break;
+
+                }
+
+                case DecorationButtonType::KeepBelow:
+                {
+                    QColor baseColor;
+                    baseColor = QColor(242, 242, 242);
+
+                    // button shadow
+                    if (!isHovered()) {
+                        painter->save();
+                        drawShadow(painter, Qt::black, 20,0);
+                        painter->restore();
+                    }
+
+                    drawAquab(painter, baseColor, 17);
+
+                    if (backgroundColor.isValid())
+                    {
+                        drawAquab(painter, baseColor, 18);
+                    }
+                    if (isPressed() || isHovered() || isChecked()) {
+                        painter->setPen(pen);
+                        painter->setBrush(Qt::NoBrush);
+                        painter->drawPolyline(QPolygonF()
+                        << QPointF(6, 6)
+                        << QPointF(9, 9)
+                        << QPointF(12, 6));
+
+                        painter->drawPolyline(QPolygonF()
+                        << QPointF(6, 10)
+                        << QPointF(9, 13)
+                        << QPointF(12, 10));
+                    }
+                    break;
+
+                }
+
+                case DecorationButtonType::KeepAbove:
+                {
+                    QColor baseColor;
+                    baseColor = QColor(242, 242, 242);
+
+                    // button shadow
+                    if (!isHovered()) {
+                        painter->save();
+                        drawShadow(painter, Qt::black, 20,0);
+                        painter->restore();
+                    }
+
+                    drawAquab(painter, baseColor, 17);
+
+                    if (backgroundColor.isValid())
+                    {
+                        drawAquab(painter, baseColor, 18);
+                    }
+                    if (isPressed() || isHovered() || isChecked()) {
+                        painter->setPen(pen);
+                        painter->setBrush(Qt::NoBrush);
+                        painter->drawPolyline(QPolygonF()
+                        << QPointF(6, 8)
+                        << QPointF(9, 5)
+                        << QPointF(12, 8));
+
+                        painter->drawPolyline(QPolygonF()
+                        << QPointF(6, 12)
+                        << QPointF(9, 9)
+                        << QPointF(12, 12));
+                    }
+                    break;
+                }
+
+
+                case DecorationButtonType::ApplicationMenu:
+                {
+                    QColor baseColor;
+                    baseColor = QColor(242, 242, 242);
+
+                    // button shadow
+                    if (!isHovered()) {
+                        painter->save();
+                        drawShadow(painter, Qt::black, 20,0);
+                        painter->restore();
+                    }
+
+                    drawAquab(painter, baseColor, 17);
+
+                    if (backgroundColor.isValid())
+                    {
+                        drawAquab(painter, baseColor, 18);
+                    }
+                    if (isPressed() || isHovered()) {
+                        painter->setPen(pen);
+                        painter->setBrush(Qt::NoBrush);
+                        painter->drawLine(QPointF(4.5, 6), QPointF(13.5, 6));
+                        painter->drawLine(QPointF(4.5, 9), QPointF(13.5, 9));
+                        painter->drawLine(QPointF(4.5, 12), QPointF(13.5, 12));
+                    }
+                    break;
+                }
+
+                case DecorationButtonType::ContextHelp:
+                {
+                    QColor baseColor;
+                    baseColor = QColor(242, 242, 242);
+
+                    // button shadow
+                    if (!isHovered()) {
+                        painter->save();
+                        drawShadow(painter, Qt::black, 20,0);
+                        painter->restore();
+                    }
+
+                    drawAquab(painter, baseColor, 17);
+
+                    if (backgroundColor.isValid())
+                    {
+                        drawAquab(painter, baseColor, 18);
+                    }
+                    if (isPressed() || isHovered()) {
                         painter->setPen(pen);
                         painter->setBrush(Qt::NoBrush);
 
@@ -4103,6 +3953,39 @@ namespace Breeze
             }
         }
 
+    }
+
+    //___________________________________________________________________________________________
+    void Button::drawAquab(QPainter *painter, const QColor &baseColor, int size) const
+    {
+
+        QRectF r(0,0, size, size);
+        // --- Degradado principal (radial invertido) ---
+        QRadialGradient base(r.center(), r.width()/2, QPointF(r.center().x(), r.bottom()));
+        base.setColorAt(0.0, baseColor.lighter(110));   // parte baja brillante
+        base.setColorAt(0.6, baseColor);
+        base.setColorAt(1.0, baseColor.darker(110));    // borde oscuro
+        painter->setBrush(base);
+        painter->setPen(baseColor.darker(140));
+        painter->drawEllipse(r);
+
+        // --- Highlight superior ovalado (reflejo Aqua) ---
+        QRectF highlightRect(r.left()+4, r.top()+1, r.width()-8, r.height()/2.5);
+        QLinearGradient gloss(highlightRect.topLeft(), highlightRect.bottomLeft());
+        gloss.setColorAt(0.0, QColor(255,255,255,180));
+        gloss.setColorAt(1.0, QColor(255,255,255,0));
+        painter->setBrush(gloss);
+        painter->setPen(Qt::NoPen);
+        painter->drawEllipse(highlightRect);
+
+        // --- Bisel interior claro ---
+        QRectF highlightRectb(r.left()+2, r.top()+r.height()/1.9, r.width()-4, r.height()/2.2);
+        QRadialGradient innerHighlight(r.center(), r.width()/2, r.center());
+        innerHighlight.setColorAt(0.0, QColor(255, 255, 255, 0));
+        innerHighlight.setColorAt(1.0, QColor(255, 255, 255, 55));
+        painter->setBrush(innerHighlight);
+        painter->setPen(Qt::NoPen);
+        painter->drawEllipse(highlightRectb);
     }
 
     //_______________________________________________________________________
