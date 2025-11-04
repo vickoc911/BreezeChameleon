@@ -166,6 +166,8 @@ namespace Breeze
                 drawIconAqua( painter, 1 );
             else if ( d && d->internalSettings()->buttonStyle() == 6 )
                 drawIconSunken( painter, 1 );
+            else if ( d && d->internalSettings()->buttonStyle() == 7 )
+                drawIconSunken( painter, 2 );
             }
         painter->restore();
 
@@ -858,7 +860,7 @@ namespace Breeze
                         if ( tipocolor == 0 )
                             drawAquab(painter, baseColor, 18);
                         else
-                            drawAquab(painter, baseColor.lighter(180), 18);
+                            drawAquab(painter, baseColor.lighter(200), 18);
                     }
                         if (isHovered()) {
                             painter->setPen( Qt::NoPen );
@@ -1271,14 +1273,15 @@ namespace Breeze
 
                 case DecorationButtonType::Close:
                 {
-
                     QColor baseColor;
 
                     if ( !isInactive ){
                         if ( tipocolor == 0 )
                             baseColor = QColor(255, 92, 87);
-                        else
+                        else if ( tipocolor == 1 )
                             baseColor = QColor(214, 219, 191);
+                        else if ( tipocolor == 2 )
+                            baseColor = QColor(141, 195, 255);
                     }
                     else
                         baseColor = inactiveCol;
@@ -1302,11 +1305,14 @@ namespace Breeze
                 case DecorationButtonType::Maximize:
                 {
                     QColor baseColor;
+
                     if ( !isInactive ){
                         if ( tipocolor == 0 )
-                            baseColor = QColor(36, 191, 57);
-                        else
+                            baseColor = QColor(255, 92, 87);
+                        else if ( tipocolor == 1 )
                             baseColor = QColor(214, 219, 191);
+                        else if ( tipocolor == 2 )
+                            baseColor = QColor(141, 195, 255);
                     }
                     else
                         baseColor = inactiveCol;
@@ -1352,11 +1358,14 @@ namespace Breeze
                 case DecorationButtonType::Minimize:
                 {
                     QColor baseColor;
+
                     if ( !isInactive ){
                         if ( tipocolor == 0 )
-                            baseColor = QColor(243, 176, 43);
-                        else
+                            baseColor = QColor(255, 92, 87);
+                        else if ( tipocolor == 1 )
                             baseColor = QColor(214, 219, 191);
+                        else if ( tipocolor == 2 )
+                            baseColor = QColor(141, 195, 255);
                     }
                     else
                         baseColor = inactiveCol;
@@ -1382,9 +1391,11 @@ namespace Breeze
 
                     if ( !isInactive ){
                         if ( tipocolor == 0 )
-                            baseColor = QColor(132, 165, 202);
-                        else
+                            baseColor = QColor(255, 92, 87);
+                        else if ( tipocolor == 1 )
                             baseColor = QColor(214, 219, 191);
+                        else if ( tipocolor == 2 )
+                            baseColor = QColor(141, 195, 255);
                     }
                     else
                         baseColor = inactiveCol;
@@ -1406,11 +1417,14 @@ namespace Breeze
                 case DecorationButtonType::Shade:
                 {
                     QColor baseColor;
+
                     if ( !isInactive ){
                         if ( tipocolor == 0 )
-                            baseColor = QColor(132, 165, 202);
-                        else
+                            baseColor = QColor(255, 92, 87);
+                        else if ( tipocolor == 1 )
                             baseColor = QColor(214, 219, 191);
+                        else if ( tipocolor == 2 )
+                            baseColor = QColor(141, 195, 255);
                     }
                     else
                         baseColor = inactiveCol;
@@ -1439,9 +1453,11 @@ namespace Breeze
 
                     if ( !isInactive ){
                         if ( tipocolor == 0 )
-                            baseColor = QColor(132, 165, 202);
-                        else
+                            baseColor = QColor(255, 92, 87);
+                        else if ( tipocolor == 1 )
                             baseColor = QColor(214, 219, 191);
+                        else if ( tipocolor == 2 )
+                            baseColor = QColor(141, 195, 255);
                     }
                     else
                         baseColor = inactiveCol;
@@ -1475,9 +1491,11 @@ namespace Breeze
 
                     if ( !isInactive ){
                         if ( tipocolor == 0 )
-                            baseColor = QColor(132, 165, 202);
-                        else
+                            baseColor = QColor(255, 92, 87);
+                        else if ( tipocolor == 1 )
                             baseColor = QColor(214, 219, 191);
+                        else if ( tipocolor == 2 )
+                            baseColor = QColor(141, 195, 255);
                     }
                     else
                         baseColor = inactiveCol;
@@ -1508,11 +1526,14 @@ namespace Breeze
                 case DecorationButtonType::ApplicationMenu:
                 {
                     QColor baseColor;
+
                     if ( !isInactive ){
                         if ( tipocolor == 0 )
-                            baseColor = QColor(230, 129, 67);
-                        else
+                            baseColor = QColor(255, 92, 87);
+                        else if ( tipocolor == 1 )
                             baseColor = QColor(214, 219, 191);
+                        else if ( tipocolor == 2 )
+                            baseColor = QColor(141, 195, 255);
                     }
                     else
                         baseColor = inactiveCol;
@@ -1539,9 +1560,11 @@ namespace Breeze
 
                     if ( !isInactive ){
                         if ( tipocolor == 0 )
-                            baseColor = QColor(230, 129, 67);
-                        else
+                            baseColor = QColor(255, 92, 87);
+                        else if ( tipocolor == 1 )
                             baseColor = QColor(214, 219, 191);
+                        else if ( tipocolor == 2 )
+                            baseColor = QColor(141, 195, 255);
                     }
                     else
                         baseColor = inactiveCol;
