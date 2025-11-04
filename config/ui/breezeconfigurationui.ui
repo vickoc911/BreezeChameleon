@@ -278,6 +278,11 @@
            <string>Drop</string>
           </property>
          </item>
+         <item>
+          <property name="text">
+           <string>Sunken Green</string>
+          </property>
+         </item>
         </widget>
        </item>
        <item row="8" column="0" colspan="3">
