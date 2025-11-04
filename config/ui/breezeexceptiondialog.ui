@@ -221,6 +221,11 @@
           <string>Sunken Green</string>
          </property>
         </item>
+        <item>
+         <property name="text">
+          <string>Sunken Blue</string>
+         </property>
+        </item>
        </widget>
       </item>
       <item row="7" column="0">
