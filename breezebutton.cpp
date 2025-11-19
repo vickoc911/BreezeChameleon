@@ -1308,7 +1308,7 @@ namespace Breeze
 
                     if ( !isInactive ){
                         if ( tipocolor == 0 )
-                            baseColor = QColor(255, 92, 87);
+                            baseColor = QColor(36, 191, 57);
                         else if ( tipocolor == 1 )
                             baseColor = QColor(214, 219, 191);
                         else if ( tipocolor == 2 )
@@ -1361,7 +1361,7 @@ namespace Breeze
 
                     if ( !isInactive ){
                         if ( tipocolor == 0 )
-                            baseColor = QColor(255, 92, 87);
+                            baseColor = QColor(243, 176, 43);
                         else if ( tipocolor == 1 )
                             baseColor = QColor(214, 219, 191);
                         else if ( tipocolor == 2 )
@@ -1391,7 +1391,7 @@ namespace Breeze
 
                     if ( !isInactive ){
                         if ( tipocolor == 0 )
-                            baseColor = QColor(255, 92, 87);
+                            baseColor = QColor(132, 165, 202);
                         else if ( tipocolor == 1 )
                             baseColor = QColor(214, 219, 191);
                         else if ( tipocolor == 2 )
@@ -1420,7 +1420,7 @@ namespace Breeze
 
                     if ( !isInactive ){
                         if ( tipocolor == 0 )
-                            baseColor = QColor(255, 92, 87);
+                            baseColor = QColor(132, 165, 202);
                         else if ( tipocolor == 1 )
                             baseColor = QColor(214, 219, 191);
                         else if ( tipocolor == 2 )
@@ -1453,7 +1453,7 @@ namespace Breeze
 
                     if ( !isInactive ){
                         if ( tipocolor == 0 )
-                            baseColor = QColor(255, 92, 87);
+                            baseColor = QColor(132, 165, 202);
                         else if ( tipocolor == 1 )
                             baseColor = QColor(214, 219, 191);
                         else if ( tipocolor == 2 )
@@ -1491,7 +1491,7 @@ namespace Breeze
 
                     if ( !isInactive ){
                         if ( tipocolor == 0 )
-                            baseColor = QColor(255, 92, 87);
+                            baseColor = QColor(132, 165, 202);
                         else if ( tipocolor == 1 )
                             baseColor = QColor(214, 219, 191);
                         else if ( tipocolor == 2 )
@@ -1529,7 +1529,7 @@ namespace Breeze
 
                     if ( !isInactive ){
                         if ( tipocolor == 0 )
-                            baseColor = QColor(255, 92, 87);
+                            baseColor = QColor(230, 129, 67);
                         else if ( tipocolor == 1 )
                             baseColor = QColor(214, 219, 191);
                         else if ( tipocolor == 2 )
@@ -1560,7 +1560,7 @@ namespace Breeze
 
                     if ( !isInactive ){
                         if ( tipocolor == 0 )
-                            baseColor = QColor(255, 92, 87);
+                            baseColor = QColor(230, 129, 67);
                         else if ( tipocolor == 1 )
                             baseColor = QColor(214, 219, 191);
                         else if ( tipocolor == 2 )
