@@ -280,6 +280,11 @@
          </item>
          <item>
           <property name="text">
+           <string>Sunken Green</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
            <string>Sunken Blue</string>
           </property>
          </item>
