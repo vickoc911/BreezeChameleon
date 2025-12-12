@@ -4,7 +4,7 @@
 
 BreezeChameleon is a fork of KDE BreezeEnhanced decoration with the following changes:
 
- * Added the following button types: MacOS, Aqua, Sunken, Plasma, Oxygen.
+ * Added the following button types: MacOS, Aqua, Sunken, Plasma, Oxygen, Drop.
  * You can choose the type of button per application.
  * The optional title-bar gradient is smooth and has a configurable intensity.
  * The title-bar opacity is configurable.
@@ -54,3 +54,10 @@ sudo zypper in -r vcalles BreezeChameleon
 ![Buttons](screenshots/Buttons.png?raw=true "Buttons")
 
 ![Animation](screenshots/Animation.gif?raw=true "Animation")
+
+### ☕ Buy Me a Coffee!
+
+If this code helped you, your support allows me to continue maintenance.
+
+[![Donate with PayPal button](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/donate?token=Q0hBJxrb7HbhQOgezgMHmi4tsoC87-Ek1AxaYK2VCd2noSGBzfytS8cBZda4iccMi-2q_j82GSqnzu7f)
+
