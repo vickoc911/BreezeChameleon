@@ -110,6 +110,15 @@
         <default>6</default>
     </entry>
 
+    <entry name="ButtonTheme" type="Enum">
+      <choices>
+        <choice name="ButtonAuto" />
+        <choice name="ButtonDark" />
+        <choice name="ButtonLight" />
+      </choices>
+      <default>ButtonAuto</default>
+    </entry>
+
     <entry name="ExtraTitleMargin" type = "Int">
         <default>0</default>
     </entry>

@@ -94,6 +94,44 @@
            </widget>
           </item>
           <item row="1" column="0">
+           <widget class="QLabel" name="buttonThemeLabel">
+            <property name="text">
+             <string>Theme:</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+            </property>
+            <property name="buddy">
+             <cstring>buttonTheme</cstring>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1" colspan="2">
+           <widget class="QComboBox" name="buttonTheme">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <item>
+             <property name="text">
+              <string>Auto</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Dark</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Light</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="2" column="0">
            <widget class="QLabel" name="buttonSpacingLabel">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -112,7 +150,7 @@
             </property>
            </widget>
           </item>
-          <item row="1" column="1" colspan="2">
+          <item row="2" column="1" colspan="2">
            <widget class="QSpinBox" name="buttonSpacing">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -128,7 +166,7 @@
             </property>
            </widget>
           </item>
-          <item row="2" column="1" colspan="2">
+          <item row="3" column="1" colspan="2">
            <widget class="QComboBox" name="buttonSize">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -163,7 +201,7 @@
             </item>
            </widget>
           </item>
-          <item row="2" column="0">
+          <item row="3" column="0">
            <widget class="QLabel" name="buttonSizeLabel">
             <property name="text">
              <string>Size:</string>
@@ -789,6 +827,7 @@
  <tabstops>
   <tabstop>tabWidget</tabstop>
   <tabstop>buttonStyle</tabstop>
+  <tabstop>buttonTheme</tabstop>
   <tabstop>buttonSpacing</tabstop>
   <tabstop>buttonSize</tabstop>
   <tabstop>typeDecoration</tabstop>

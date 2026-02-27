@@ -22,6 +22,7 @@
 #pragma once
 
 #include "breezedecoration.h"
+#include "breezesettings.h"
 #include <KDecoration3/DecorationButton>
 
 #include <QHash>
@@ -134,6 +135,8 @@ namespace Breeze
         QColor foregroundColor(const QColor& inactiveCol) const;
         QColor backgroundColor() const;
 
+        bool shouldDrawLight(int title_bar_threshold = 100) const;
+
         //@}
 
         //* active state change animation
@@ -147,6 +150,9 @@ namespace Breeze
 
         //* active state change opacity
         qreal m_opacity = 0;
+
+        //* button theme (auto, dark, light)
+        int m_buttonTheme = InternalSettings::EnumButtonTheme::ButtonAuto;
     };
 
 } // namespace

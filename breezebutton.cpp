@@ -19,6 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "breezebutton.h"
+#include "breezesettings.h"
 
 #include <KColorScheme>
 #include <KColorUtils>
@@ -289,7 +290,7 @@ namespace Breeze
                 case DecorationButtonType::Maximize:
                 {
                         QLinearGradient grad(QPointF(9, 2), QPointF(9, 16));
-                        if (d && qGray(d->titleBarColor().rgb()) > 100)
+                        if (shouldDrawLight())
                         {
                             grad.setColorAt(0, isChecked() ? isInactive ? inactiveCol
                                                                         : QColor(67, 198, 176)
@@ -330,7 +331,7 @@ namespace Breeze
                 case DecorationButtonType::Minimize:
                 {
                         QLinearGradient grad(QPointF(9, 2), QPointF(9, 16));
-                        if (d && qGray(d->titleBarColor().rgb()) > 100)
+                        if (shouldDrawLight())
                         { // yellow isn't good with light backgrounds
                             grad.setColorAt(0, isInactive ? inactiveCol
                                                           : QColor(243, 176, 43));
@@ -364,7 +365,7 @@ namespace Breeze
                 {
                     if (!isPressed()) {
                         QLinearGradient grad(QPointF(9, 2), QPointF(9, 16));
-                        if (d && qGray(d->titleBarColor().rgb()) > 100)
+                        if (shouldDrawLight())
                         { // yellow isn't good with light backgrounds
                             grad.setColorAt(0, isInactive ? inactiveCol
                                                           : QColor(103, 149, 210));
@@ -403,7 +404,7 @@ namespace Breeze
                 {
                     if (!isPressed()) {
                         QLinearGradient grad(QPointF(9, 2), QPointF(9, 16));
-                        if (d && qGray(d->titleBarColor().rgb()) > 100)
+                        if (shouldDrawLight())
                         { // yellow isn't good with light backgrounds
                             grad.setColorAt(0, isInactive ? inactiveCol
                                                           : QColor(103, 149, 210));
@@ -443,7 +444,7 @@ namespace Breeze
                 {
                     if (!isPressed()) {
                         QLinearGradient grad(QPointF(9, 2), QPointF(9, 16));
-                        if (d && qGray(d->titleBarColor().rgb()) > 100)
+                        if (shouldDrawLight())
                         { // yellow isn't good with light backgrounds
                             grad.setColorAt(0, isInactive ? inactiveCol
                                                           : QColor(103, 149, 210));
@@ -482,7 +483,7 @@ namespace Breeze
                 {
                     if (!isPressed()) {
                         QLinearGradient grad(QPointF(9, 2), QPointF(9, 16));
-                        if (d && qGray(d->titleBarColor().rgb()) > 100)
+                        if (shouldDrawLight())
                         { // yellow isn't good with light backgrounds
                             grad.setColorAt(0, isInactive ? inactiveCol
                                                           : QColor(103, 149, 210));
@@ -522,7 +523,7 @@ namespace Breeze
                 {
                     if (!isPressed()) {
                         QLinearGradient grad(QPointF(9, 2), QPointF(9, 16));
-                        if (d && qGray(d->titleBarColor().rgb()) > 100)
+                        if (shouldDrawLight())
                         { // yellow isn't good with light backgrounds
                             grad.setColorAt(0, isInactive ? inactiveCol
                                                           : QColor(230, 129, 67));
@@ -557,7 +558,7 @@ namespace Breeze
                 {
                     if (!isPressed()) {
                         QLinearGradient grad(QPointF(9, 2), QPointF(9, 16));
-                        if (d && qGray(d->titleBarColor().rgb()) > 100)
+                        if (shouldDrawLight())
                         { // yellow isn't good with light backgrounds
                             grad.setColorAt(0, isInactive ? inactiveCol
                                                           : QColor(103, 149, 210));
@@ -2162,7 +2163,13 @@ namespace Breeze
             QColor symbolColor1;
             const bool sunken = isPressed() || isChecked();
 
-            if (d && qGray(d->titleBarColor().rgb()) > 130)
+            bool useLightTheme = (m_buttonTheme == InternalSettings::EnumButtonTheme::ButtonLight);
+            if (m_buttonTheme == InternalSettings::EnumButtonTheme::ButtonAuto)
+            {
+                useLightTheme = shouldDrawLight(130);
+            }
+
+            if (useLightTheme)
             {
                 color = Qt::white;
                 color1 = QColor(239, 240, 241);
@@ -2989,7 +2996,7 @@ namespace Breeze
             }
             else
             {
-                if (d && qGray(d->titleBarColor().rgb()) > 100)
+                if (shouldDrawLight())
                     col = QColor(250, 250, 250);
                 else
                     col = QColor(40, 40, 40);
@@ -3044,33 +3051,33 @@ namespace Breeze
                 QColor col;
                 if (type() == DecorationButtonType::Close)
                 {
-                    if (qGray(d->titleBarColor().rgb()) > 100)
+                    if (shouldDrawLight())
                         col = QColor(254, 73, 66);
                     else
                         col = QColor(240, 77, 80);
                 }
                 else if (type() == DecorationButtonType::Maximize)
                 {
-                    if (qGray(d->titleBarColor().rgb()) > 100)
+                    if (shouldDrawLight())
                         col = isChecked() ? QColor(0, 188, 154) : QColor(7, 201, 33);
                     else
                         col = isChecked() ? QColor(0, 188, 154) : QColor(101, 188, 34);
                 }
                 else if (type() == DecorationButtonType::Minimize)
                 {
-                    if (qGray(d->titleBarColor().rgb()) > 100)
+                    if (shouldDrawLight())
                         col = QColor(233, 160, 13);
                     else
                         col = QColor(227, 185, 59);
                 }
                 else if (type() == DecorationButtonType::ApplicationMenu) {
-                    if (qGray(d->titleBarColor().rgb()) > 100)
+                    if (shouldDrawLight())
                         col = QColor(220, 124, 64);
                     else
                         col = QColor(240, 139, 96);
                 }
                 else {
-                    if (qGray(d->titleBarColor().rgb()) > 100)
+                    if (shouldDrawLight())
                         col = QColor(83, 121, 170);
                     else
                         col = QColor(110, 136, 180);
@@ -3084,33 +3091,33 @@ namespace Breeze
                 QColor col;
                 if (type() == DecorationButtonType::Close)
                 {
-                    if (qGray(d->titleBarColor().rgb()) > 100)
+                    if (shouldDrawLight())
                         col = QColor(254, 95, 87);
                     else
                         col = QColor(240, 96, 97);
                 }
                 else if (type() == DecorationButtonType::Maximize)
                 {
-                    if (qGray(d->titleBarColor().rgb()) > 100)
+                    if (shouldDrawLight())
                         col = isChecked() ? QColor(64, 188, 168) : QColor(39, 201, 63);
                     else
                         col = isChecked() ? QColor(64, 188, 168) : QColor(116, 188, 64);
                 }
                 else if (type() == DecorationButtonType::Minimize)
                 {
-                    if (qGray(d->titleBarColor().rgb()) > 100)
+                    if (shouldDrawLight())
                         col = QColor(233, 172, 41);
                     else
                         col = QColor(227, 191, 78);
                 }
                 else if (type() == DecorationButtonType::ApplicationMenu) {
-                    if (qGray(d->titleBarColor().rgb()) > 100)
+                    if (shouldDrawLight())
                         col = QColor(220, 124, 64);
                     else
                         col = QColor(240, 139, 96);
                 }
                 else {
-                    if (qGray(d->titleBarColor().rgb()) > 100)
+                    if (shouldDrawLight())
                         col = QColor(98, 141, 200);
                     else
                         col = QColor(128, 157, 210);
@@ -3130,33 +3137,33 @@ namespace Breeze
                 QColor col;
                 if (type() == DecorationButtonType::Close)
                 {
-                    if (qGray(d->titleBarColor().rgb()) > 100)
+                    if (shouldDrawLight())
                         col = QColor(254, 95, 87);
                     else
                         col = QColor(240, 96, 97);
                 }
                 else if (type() == DecorationButtonType::Maximize)
                 {
-                    if (qGray(d->titleBarColor().rgb()) > 100)
+                    if (shouldDrawLight())
                         col = isChecked() ? QColor(64, 188, 168) : QColor(39, 201, 63);
                     else
                         col = isChecked() ? QColor(64, 188, 168) : QColor(116, 188, 64);
                 }
                 else if (type() == DecorationButtonType::Minimize)
                 {
-                    if (qGray(d->titleBarColor().rgb()) > 100)
+                    if (shouldDrawLight())
                         col = QColor(233, 172, 41);
                     else
                         col = QColor(227, 191, 78);
                 }
                 else if (type() == DecorationButtonType::ApplicationMenu) {
-                    if (qGray(d->titleBarColor().rgb()) > 100)
+                    if (shouldDrawLight())
                         col = QColor(220, 124, 64);
                     else
                         col = QColor(240, 139, 96);
                 }
                 else {
-                    if (qGray(d->titleBarColor().rgb()) > 100)
+                    if (shouldDrawLight())
                         col = QColor(98, 141, 200);
                     else
                         col = QColor(128, 157, 210);
@@ -3179,7 +3186,7 @@ namespace Breeze
                 else
                 {
                     QColor col;
-                    if (qGray(d->titleBarColor().rgb()) > 100)
+                    if (shouldDrawLight())
                         col = QColor(0, 0, 0, 190);
                     else
                         col = QColor(255, 255, 255, 210);
@@ -3189,7 +3196,7 @@ namespace Breeze
             } else if ((type() == DecorationButtonType::KeepBelow || type() == DecorationButtonType::KeepAbove) && isChecked()) {
 
                     QColor col;
-                    if (qGray(d->titleBarColor().rgb()) > 100)
+                    if (shouldDrawLight())
                         col = QColor(0, 0, 0, 165);
                     else
                         col = QColor(255, 255, 255, 180);
@@ -3207,7 +3214,7 @@ namespace Breeze
                 } else {
 
                     QColor col;
-                    if (qGray(d->titleBarColor().rgb()) > 100)
+                    if (shouldDrawLight())
                         col = QColor(0, 0, 0, 165);
                     else
                         col = QColor(255, 255, 255, 180);
@@ -3223,7 +3230,7 @@ namespace Breeze
                 {
 
                     QColor col;
-                    if (qGray(d->titleBarColor().rgb()) > 100)
+                    if (shouldDrawLight())
                         col = QColor(0, 0, 0, 165);
                     else
                         col = QColor(255, 255, 255, 180);
@@ -3404,6 +3411,18 @@ namespace Breeze
     }
 
     //________________________________________________________________
+    bool Button::shouldDrawLight(int title_bar_threshold) const
+    {
+        bool useLightTheme = (m_buttonTheme == InternalSettings::EnumButtonTheme::ButtonLight);
+        if (m_buttonTheme == InternalSettings::EnumButtonTheme::ButtonAuto)
+        {
+            auto d = qobject_cast<Decoration*>(decoration());
+            useLightTheme = d && qGray(d->titleBarColor().rgb()) > title_bar_threshold;
+        }
+        return useLightTheme;
+    }
+
+    //________________________________________________________________
     void Button::reconfigure()
     {
 
@@ -3412,6 +3431,7 @@ namespace Breeze
         {
             m_animation->setDuration(d->internalSettings()->animationsDuration());
             setPreferredSize(QSizeF(d->buttonSize(), d->buttonSize()));
+            m_buttonTheme = d->internalSettings()->buttonTheme();
         }
 
     }
