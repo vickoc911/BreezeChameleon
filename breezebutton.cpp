@@ -2163,13 +2163,7 @@ namespace Breeze
             QColor symbolColor1;
             const bool sunken = isPressed() || isChecked();
 
-            bool useLightTheme = (m_buttonTheme == InternalSettings::EnumButtonTheme::ButtonLight);
-            if (m_buttonTheme == InternalSettings::EnumButtonTheme::ButtonAuto)
-            {
-                useLightTheme = shouldDrawLight(130);
-            }
-
-            if (useLightTheme)
+            if (shouldDrawLight(130))
             {
                 color = Qt::white;
                 color1 = QColor(239, 240, 241);
