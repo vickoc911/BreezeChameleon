@@ -180,7 +180,7 @@
          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
         <property name="buddy">
-         <cstring>buttonStyle</cstring>
+         <cstring>buttonStyleLabel</cstring>
         </property>
        </widget>
       </item>
