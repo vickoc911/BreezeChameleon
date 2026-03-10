@@ -49,6 +49,7 @@ namespace Breeze
         connect(m_ui.titleAlignment, SIGNAL(currentIndexChanged(int)), SLOT(updateChanged()));
         connect(m_ui.buttonSize, SIGNAL(currentIndexChanged(int)), SLOT(updateChanged()));
         connect(m_ui.buttonStyle, SIGNAL(currentIndexChanged(int)), SLOT(updateChanged()) );
+        connect(m_ui.buttonTheme, SIGNAL(currentIndexChanged(int)), SLOT(updateChanged()) );
         connect(m_ui.titleMargin, QOverload<int>::of(&QSpinBox::valueChanged), [this](int /*i*/) {updateChanged();});
         connect(m_ui.buttonSpacing, QOverload<int>::of(&QSpinBox::valueChanged), [this](int /*i*/) {updateChanged();});
         connect(m_ui.typeDecoration, SIGNAL(currentIndexChanged(int)), SLOT(updateChanged()) );
@@ -93,6 +94,7 @@ namespace Breeze
         m_ui.titleAlignment->setCurrentIndex(m_internalSettings->titleAlignment());
         m_ui.buttonSize->setCurrentIndex(m_internalSettings->buttonSize());
         m_ui.buttonStyle->setCurrentIndex(m_internalSettings->buttonStyle() );
+        m_ui.buttonTheme->setCurrentIndex(m_internalSettings->buttonTheme());
         m_ui.titleMargin->setValue(m_internalSettings->extraTitleMargin());
         m_ui.buttonSpacing->setValue(m_internalSettings->buttonSpacing());
         m_ui.typeDecoration->setCurrentIndex(m_internalSettings->typeDecorationWindow());
@@ -168,6 +170,7 @@ namespace Breeze
         m_internalSettings->setTitleAlignment(m_ui.titleAlignment->currentIndex());
         m_internalSettings->setButtonSize(m_ui.buttonSize->currentIndex());
         m_internalSettings->setButtonStyle( m_ui.buttonStyle->currentIndex() );
+        m_internalSettings->setButtonTheme(m_ui.buttonTheme->currentIndex());
         m_internalSettings->setExtraTitleMargin(m_ui.titleMargin->value());
         m_internalSettings->setButtonSpacing(m_ui.buttonSpacing->value());
         m_internalSettings->setTypeDecorationWindow( m_ui.typeDecoration->currentIndex() );
