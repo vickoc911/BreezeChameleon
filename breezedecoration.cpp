@@ -751,8 +751,8 @@ namespace Breeze
                 if (!isMaximized())
                 {
                     gradient.setColorAt(0.0, lightCol);
+                    gradient.setColorAt(0.99 / titleRect.height(), lightCol);
                 }
-                gradient.setColorAt(0.99 / titleRect.height(), lightCol);
                 gradient.setColorAt(1.0 / titleRect.height(), titleBarColor);
                 gradient.setColorAt(1.0, titleBarColor);
 
