@@ -4,7 +4,7 @@
 
 BreezeChameleon is a fork of KDE BreezeEnhanced decoration with the following changes:
 
- * Added the following button types: MacOS, Aqua, Sunken, Plasma, Oxygen, Drop.
+ * Added the following button types: MacOS, Aqua, Sunken, Plasma, Oxygen, Drop, Sunken Green, Sunken Blue.
  * You can choose the type of button per application.
  * The optional title-bar gradient is smooth and has a configurable intensity.
  * The title-bar opacity is configurable.
