@@ -5,7 +5,7 @@ Summary:        BreezeChameleon KDE decoration
 
 License:        GPL-3.0-or-later
 URL:            https://github.com/vickoc911/BreezeChameleon
-Source0:        %{name}-%{version}.tar.gz
+Source0:        %{url}/archive/refs/heads/master.tar.gz#/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -38,7 +38,7 @@ Requires:       kdecoration
 BreezeChameleon is a fork of KDE Breeze decoration with enhancements.
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n BreezeChameleon-master
 
 %build
 %cmake \
