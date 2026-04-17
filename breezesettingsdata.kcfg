@@ -40,7 +40,7 @@
     </entry>
 
     <entry name="RoundIntensity" type = "Int">
-      <default>3</default>
+      <default>6</default>
     </entry>
 
     <entry name="OutlineIntensity" type = "Enum">
