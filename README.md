@@ -37,13 +37,28 @@ sudo make install
 ```
 After the installation, restart KWin by logging out and in. Then, BreezeChameleon will appear in *System Settings &rarr; Application Style &rarr; Window Decorations*.
 
-### Installation with package manager
+## Packages
 
-Users of OpenSUSE Tumbleweed can do:
-```sh
-sudo zypper ar obs://home:vcalles vcalles
-sudo zypper in -r vcalles BreezeChameleon
-```
+<details>
+  <summary>openSUSE Tumbleweed (maintained by me)</summary>
+  <br>
+  
+  ```sh
+  sudo zypper ar https://download.opensuse.org/repositories/home:/vcalles/openSUSE_Tumbleweed/home:vcalles.repo
+  sudo zypper refresh
+  sudo zypper install BreezeChameleon
+  ```
+</details>
+<details>
+  <summary>Fedora 43, 42 (copr) (maintained by me)</summary>
+  <br>
+  
+  ```sh
+  sudo dnf copr enable vcalles/BreezeChameleon
+  sudo dnf install breezechameleon
+  ```
+</details>
+
 
 ## Screenshots:
 
