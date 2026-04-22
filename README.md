@@ -50,7 +50,7 @@ After the installation, restart KWin by logging out and in. Then, BreezeChameleo
   ```
 </details>
 <details>
-  <summary>Fedora 43, 42 (copr) (maintained by me)</summary>
+  <summary>Fedora 44, 43, 42 (copr) (maintained by me)</summary>
   <br>
   
   ```sh
